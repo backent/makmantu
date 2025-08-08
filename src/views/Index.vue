@@ -1,87 +1,98 @@
-
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-// import { ArrowRightCircleIcon } from '@heroicons/vue/24/outline'
-const navOpen = ref(false)
+import pempek from '@/assets/images/pempek_lenjer.png'
+
+const slides = [
+  { img: pempek, title: 'Explore & Customize', text: 'Browse a wide variety of pempek, lenjer, and more. Customize your order perfectly.' },
+  { img: pempek, title: 'Fresh & Tasty', text: 'Our pempek is made fresh daily with the finest ingredients.' },
+  { img: pempek, title: 'Fast Delivery', text: 'Get your favorite pempek delivered to your doorstep in minutes.' }
+]
+
+const currentIndex = ref(0)
+let intervalId: number
+
+const goToNext = () => {
+  console.log('Get started clicked');
+}
+
+const nextSlide = () => {
+  currentIndex.value = (currentIndex.value + 1) % slides.length
+}
+
+onMounted(() => {
+  intervalId = setInterval(nextSlide, 3000)
+})
+
+onBeforeUnmount(() => {
+  clearInterval(intervalId)
+})
 </script>
 
-
 <template>
-
-    <div class="main px-2 sm:px-5 bg-[#DCC5B2] pt-3 sm:pt-5 flex flex-col items-center min-h-screen">
-        <!-- Navbar -->
-        <div class="navbar h-[60px] sm:h-[80px] bg-[#FAF7F3] w-full sm:w-4/5 rounded-none sm:rounded-3xl flex items-center px-4 sm:px-10 mb-3 sm:mb-5 sticky top-3">
-            <img class="logo w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] object-cover" src="@assets/images/logo1.png" alt="Logo-pempek">
-            <!-- Hamburger button for mobile -->
-            <button @click="navOpen = !navOpen" class="ml-auto sm:hidden p-2 focus:outline-none cursor-pointer" aria-label="Toggle navigation">
-                <svg v-if="!navOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-[#4A2C24]">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
-                </svg>
-                <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-[#4A2C24]">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <!-- Desktop menu -->
-            <div class="menu hidden sm:grid grid-cols-3 gap-5 w-auto ml-5">
-                <a href="#" class="menu-item text-base">Catalog</a>
-                <a href="#" class="menu-item text-base">Contact</a>
-            </div>
-            <!-- Mobile dropdown menu with smooth transition and backdrop -->
-            <transition
-                enter-active-class="transition duration-300 ease-out"
-                leave-active-class="transition duration-200 ease-in"
-                enter-from-class="opacity-0 -translate-y-2"
-                enter-to-class="opacity-100 translate-y-0"
-                leave-from-class="opacity-100 translate-y-0"
-                leave-to-class="opacity-0 -translate-y-2"
-            >
-                <div v-if="navOpen" class="fixed inset-0 z-30 flex sm:hidden">
-                    <!-- Backdrop -->
-                    <div class="absolute inset-0 bg-black-1/100 backdrop-blur-sm" @click.self="navOpen = false"></div>
-                    <!-- Dropdown -->
-                    <div class="absolute top-[60px] left-0 w-full bg-[#FAF7F3] shadow-lg rounded-b-xl flex flex-col items-center">
-                        <a href="#" class="menu-item text-base py-3 w-full text-center border-b border-[#E5E5E5]">Catalog</a>
-                        <a href="#" class="menu-item text-base py-3 w-full text-center">Contact</a>
-                    </div>
-                </div>
-            </transition>
-        </div>
-
-        <div class="content bg-[#FAF7F3] w-full sm:w-4/5 rounded-none sm:rounded-3xl flex flex-col items-center px-2 sm:px-10 pt-5 sm:pt-[40px]">
-            <h1 class="text-2xl sm:text-5xl mb-2 sm:mb-3 text-[#4A2C24] text-center">Cita Rasa Pempek, Sepenuh Hati</h1>
-            <h3 class="mb-3 sm:mb-6 text-[#5C3A2E] text-sm sm:text-lg text-center">Nikmati cita rasa pempek yang autentik dan lezat, dibuat dengan sepenuh hati.</h3>
-            <div class="w-full sm:w-3/5 text-center font-extralight text-[#866A56] mb-2 sm:mb-0">
-                <p>Selamat datang di katalog pempek keluarga kami!
-Kami bangga menyajikan berbagai pilihan pempek berkualitas tinggi — dibuat dengan ikan segar, resep asli dari dapur keluarga kami.</p>
-            </div>
-
-            <div class="content-list grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mt-6 sm:mt-10 w-full">
-                <div class="content-item bg-white rounded-lg p-3 sm:p-5 shadow-lg">
-                    <div class="flex items-center justify-between mb-2">
-                        <h4 class="text-2xl sm:text-4xl text-[#4A2C24] font-semibold">Kapal Selam</h4>
-                        <!-- <ArrowRightCircleIcon class="w-8 h-8 sm:w-12 sm:h-12 text-[#4A2C24] cursor-pointer" /> -->
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-700 mb-4 sm:mb-6">Pempek klasik berisi telur ayam utuh yang dibalut adonan ikan tenggiri kenyal, disajikan dengan kuah cuko khas Palembang yang gurih dan segar.</p>
-                    <img class="aspect-square rounded-md w-full object-cover max-h-30 sm:max-h-none" src="@assets/images/pempek_lenjer.png" alt="pempek kapal selam enak">
-                </div>
-                <div class="content-item bg-white rounded-lg p-3 sm:p-5 shadow-lg">
-                    <div class="flex items-center justify-between mb-2">
-                        <h4 class="text-2xl sm:text-4xl text-[#4A2C24] font-semibold">Lenjer</h4>
-                        <!-- <ArrowRightCircleIcon class="w-8 h-8 sm:w-12 sm:h-12 text-[#4A2C24] cursor-pointer" /> -->
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-700 mb-4 sm:mb-6">Pempek berbentuk panjang dengan tekstur lembut dan rasa ikan tenggiri yang khas, cocok dinikmati bersama cuko hangat atau digoreng kembali.</p>
-                    <img class="aspect-square rounded-md w-full object-cover max-h-30 sm:max-h-none" src="@assets/images/pempek_lenjer.png" alt="pempek lenjer enak">
-                </div>
-                <div class="content-item bg-white rounded-lg p-3 sm:p-5 shadow-lg">
-                    <div class="flex items-center justify-between mb-2">
-                        <h4 class="text-2xl sm:text-4xl text-[#4A2C24] font-semibold">Adaan</h4>
-                        <!-- <ArrowRightCircleIcon class="w-8 h-8 sm:w-12 sm:h-12 text-[#4A2C24] cursor-pointer" /> -->
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-700 mb-4 sm:mb-6">Pempek goreng berbentuk bulat dengan aroma daun bawang dan rempah, renyah di luar dan lembut di dalam, cocok jadi camilan atau lauk makan siang.</p>
-                    <img class="aspect-square rounded-md w-full object-cover max-h-30 sm:max-h-none" src="@assets/images/pempek_lenjer.png" alt="pempek adhaan enak">
-                </div>
-
-            </div>
-        </div>
+  <div class="h-screen flex flex-col overflow-hidden bg-white">
+    <!-- Floating Navbar -->
+    <div class="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-4 py-3 bg-white/30 backdrop-blur-sm">
+      <button class="p-2 rounded-full bg-white/50 hover:bg-white/70">
+        <!-- Back icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4b2f22]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <h1 class="text-lg font-semibold text-[#4b2f22]">Pempek App</h1>
+      <button class="p-2 rounded-full bg-white/50 hover:bg-white/70">
+        <!-- Menu icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4b2f22]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
     </div>
+
+    <!-- Image Slider -->
+    <div class="relative h-[70%] overflow-hidden">
+      <div
+        class="flex transition-all duration-700 ease-in-out"
+        :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
+      >
+        <div v-for="(slide, i) in slides" :key="i" class="w-full flex-none h-[70%]">
+          <img :src="slide.img" alt="Slide Image" class="w-full h-full object-cover object-center" />
+        </div>
+      </div>
+
+      <!-- Gradient overlay -->
+      <div class="absolute bottom-0 w-full h-24 bg-gradient-to-b from-transparent to-[#f4e6d0]/95 backdrop-blur-sm"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="flex-1 flex flex-col items-center justify-between pb-8 bg-gradient-to-b from-[#f4e6d0] to-white">
+      <!-- Pagination dots -->
+      <div class="flex space-x-2 mt-4">
+        <span
+          v-for="(slide, i) in slides"
+          :key="'dot' + i"
+          class="w-2 h-2 rounded-full transition-colors duration-300"
+          :class="currentIndex === i ? 'bg-[#4b2f22]' : 'bg-[#d9c4a0]'"
+        ></span>
+      </div>
+
+      <!-- Text -->
+      <div class="text-center px-6">
+        <h1 class="text-3xl font-bold mb-2 text-[#4b2f22]">
+          {{ slides[currentIndex].title }}
+        </h1>
+        <p class="text-[#5c4639] text-sm">
+          {{ slides[currentIndex].text }}
+        </p>
+      </div>
+
+      <!-- Button -->
+      <div class="w-full px-6">
+        <button
+          @click="goToNext"
+          class="w-full py-4 bg-[#4b2f22] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-colors"
+        >
+          Get started
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
