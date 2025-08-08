@@ -9,8 +9,9 @@ const navOpen = ref(false)
 <template>
 
     <div class="main px-2 sm:px-5 bg-[#DCC5B2] pt-3 sm:pt-5 flex flex-col items-center min-h-screen">
+        <!-- Navbar -->
         <div class="navbar h-[60px] sm:h-[80px] bg-[#FAF7F3] w-full sm:w-4/5 rounded-none sm:rounded-3xl flex items-center px-4 sm:px-10 mb-3 sm:mb-5 sticky top-3">
-            <img class="logo w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]" src="@assets/images/logo1.png" alt="Logo-pempek">
+            <img class="logo w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] object-cover" src="@assets/images/logo1.png" alt="Logo-pempek">
             <!-- Hamburger button for mobile -->
             <button @click="navOpen = !navOpen" class="ml-auto sm:hidden p-2 focus:outline-none cursor-pointer" aria-label="Toggle navigation">
                 <svg v-if="!navOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-[#4A2C24]">
@@ -22,8 +23,7 @@ const navOpen = ref(false)
             </button>
             <!-- Desktop menu -->
             <div class="menu hidden sm:grid grid-cols-3 gap-5 w-auto ml-5">
-                <a href="#" class="menu-item text-base">Home</a>
-                <a href="#" class="menu-item text-base">About</a>
+                <a href="#" class="menu-item text-base">Catalog</a>
                 <a href="#" class="menu-item text-base">Contact</a>
             </div>
             <!-- Mobile dropdown menu with smooth transition and backdrop -->
@@ -40,8 +40,7 @@ const navOpen = ref(false)
                     <div class="absolute inset-0 bg-black-1/100 backdrop-blur-sm" @click.self="navOpen = false"></div>
                     <!-- Dropdown -->
                     <div class="absolute top-[60px] left-0 w-full bg-[#FAF7F3] shadow-lg rounded-b-xl flex flex-col items-center">
-                        <a href="#" class="menu-item text-base py-3 w-full text-center border-b border-[#E5E5E5]">Home</a>
-                        <a href="#" class="menu-item text-base py-3 w-full text-center border-b border-[#E5E5E5]">About</a>
+                        <a href="#" class="menu-item text-base py-3 w-full text-center border-b border-[#E5E5E5]">Catalog</a>
                         <a href="#" class="menu-item text-base py-3 w-full text-center">Contact</a>
                     </div>
                 </div>
@@ -53,7 +52,7 @@ const navOpen = ref(false)
             <h3 class="mb-3 sm:mb-6 text-[#5C3A2E] text-sm sm:text-lg text-center">Nikmati cita rasa pempek yang autentik dan lezat, dibuat dengan sepenuh hati.</h3>
             <div class="w-full sm:w-3/5 text-center font-extralight text-[#866A56] mb-2 sm:mb-0">
                 <p>Selamat datang di katalog pempek keluarga kami!
-Kami bangga menyajikan berbagai pilihan pempek berkualitas tinggi — dibuat dengan ikan segar, resep asli Palembang, dan cinta dari dapur keluarga kami.</p>
+Kami bangga menyajikan berbagai pilihan pempek berkualitas tinggi — dibuat dengan ikan segar, resep asli dari dapur keluarga kami.</p>
             </div>
 
             <div class="content-list grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mt-6 sm:mt-10 w-full">
