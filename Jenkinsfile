@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'RELEASE_VERSION', 'default': 'none', description: 'Release version to build')
+        string(name: 'RELEASE_VERSION', default: 'none', description: 'Release version to build')
     }
     stages {
         stage('Login to Docker') {
