@@ -1,54 +1,87 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import pempek from '@/assets/images/pempek_lenjer.png'
+import pempek from '@/assets/images/adaan.jpeg'
 
 const slides = [
-  { img: pempek, title: 'Explore & Customize', text: 'Browse a wide variety of pempek, lenjer, and more. Customize your order perfectly.' },
-  { img: pempek, title: 'Fresh & Tasty', text: 'Our pempek is made fresh daily with the finest ingredients.' },
-  { img: pempek, title: 'Fast Delivery', text: 'Get your favorite pempek delivered to your doorstep in minutes.' }
+  { img: pempek, title: 'Pempek Lenjer', text: 'Browse a wide variety of pempek, lenjer, and more. Customize your order perfectly.' },
+  { img: pempek, title: 'Pempek Adaan', text: 'Our pempek is made fresh daily with the finest ingredients.' },
+  { img: pempek, title: 'Pempek Kulit', text: 'Get your favorite pempek delivered to your doorstep in minutes.' },
+  { img: pempek, title: 'Pempek Kapal Selam', text: 'Get your favorite pempek delivered to your doorstep in minutes.' }
 ]
 
 const currentIndex = ref(0)
 let intervalId: number
 
+// Touch tracking
+let startX = 0
+let endX = 0
+
 const goToNext = () => {
-  console.log('Get started clicked');
+  console.log('Get started clicked')
 }
 
 const nextSlide = () => {
   currentIndex.value = (currentIndex.value + 1) % slides.length
 }
 
+const prevSlide = () => {
+  currentIndex.value = (currentIndex.value - 1 + slides.length) % slides.length
+}
+
+// Handle touch start
+const handleTouchStart = (e: TouchEvent) => {
+  startX = e.touches[0].clientX
+}
+
+// Handle touch move
+const handleTouchMove = (e: TouchEvent) => {
+  endX = e.touches[0].clientX
+}
+
+// Handle touch end
+const handleTouchEnd = () => {
+  const deltaX = endX - startX
+  if (Math.abs(deltaX) > 50) {
+    if (deltaX > 0) {
+      prevSlide()
+    } else {
+      nextSlide()
+    }
+  }
+}
+
+const openLink = () => {
+const params = new URLSearchParams({
+    text: `Halo, saya ingin memesan ${slides[currentIndex.value].title}`
+})
+window.open(`https://wa.me/6285779983483?${params.toString()}`, '_blank')
+}
+
 onMounted(() => {
-  intervalId = setInterval(nextSlide, 3000)
+//   intervalId = setInterval(nextSlide, 3000)
 })
 
 onBeforeUnmount(() => {
-  clearInterval(intervalId)
+//   clearInterval(intervalId)
 })
 </script>
 
 <template>
   <div class="h-screen flex flex-col overflow-hidden bg-white">
     <!-- Floating Navbar -->
-    <div class="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-4 py-3 bg-white/30 backdrop-blur-sm">
-      <button class="p-2 rounded-full bg-white/50 hover:bg-white/70">
-        <!-- Back icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4b2f22]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      <h1 class="text-lg font-semibold text-[#4b2f22]">Pempek App</h1>
-      <button class="p-2 rounded-full bg-white/50 hover:bg-white/70">
-        <!-- Menu icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4b2f22]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+    <div class="absolute top-0 left-0 right-0 z-20 flex items-center justify-center px-4 pb-3 pt-5 bg-[#f9f1e6] backdrop-blur-sm w-full h-[60px]">
+      <div>
+        <img src="@/assets/images/logohd-removebg-preview.png" alt="Logo" class="h-[60px]">
+      </div>
     </div>
 
     <!-- Image Slider -->
-    <div class="relative h-[70%] overflow-hidden">
+    <div 
+      class="relative h-[70%] overflow-hidden"
+      @touchstart="handleTouchStart"
+      @touchmove="handleTouchMove"
+      @touchend="handleTouchEnd"
+    >
       <div
         class="flex transition-all duration-700 ease-in-out"
         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
@@ -65,7 +98,7 @@ onBeforeUnmount(() => {
     <!-- Content -->
     <div class="flex-1 flex flex-col items-center justify-between pb-8 bg-gradient-to-b from-[#f4e6d0] to-white">
       <!-- Pagination dots -->
-      <div class="flex space-x-2 mt-4">
+      <div class="flex space-x-2 mb-4">
         <span
           v-for="(slide, i) in slides"
           :key="'dot' + i"
@@ -76,21 +109,24 @@ onBeforeUnmount(() => {
 
       <!-- Text -->
       <div class="text-center px-6">
-        <h1 class="text-3xl font-bold mb-2 text-[#4b2f22]">
+        <h1 class="text-3xl font-bold mb-2 text-[#af603b]">
           {{ slides[currentIndex].title }}
         </h1>
-        <p class="text-[#5c4639] text-sm">
+        <p class="text-[#5c4639]/70 text-sm">
           {{ slides[currentIndex].text }}
+        </p>
+        <p class="text-[#5c4639] text-xl font-semibold mt-2 mb-5">
+            Rp. 1000,00
         </p>
       </div>
 
       <!-- Button -->
       <div class="w-full px-6">
         <button
-          @click="goToNext"
-          class="w-full py-4 bg-[#4b2f22] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-colors"
+          @click="openLink"
+          class="w-full py-4 bg-[#af603b] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-colors"
         >
-          Get started
+          Order Now
         </button>
       </div>
     </div>
