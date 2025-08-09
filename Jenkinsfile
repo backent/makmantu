@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'RELEASE_VERSION', defaultValue: 'none', description: 'Release version to build')
+        string(name: 'RELEASE_VERSION', defaultValue: '', description: 'Release version to build')
     }
     stages {
         stage('Login to Docker') {
@@ -17,10 +17,11 @@ pipeline {
         }
         stage('Build') {
             when {
-                expression { params.RELEASE_VERSION != 'none' }
+                expression { params.RELEASE_VERSION != '' }
             }
             steps {
-                sh('docker build -t backent/pempek-makmantu:${params.RELEASE_VERSION} .')                
+                echo 'build with version ${params.RELEASE_VERSION}'
+                sh("docker build -t backent/pempek-makmantu:${params.RELEASE_VERSION} .")
             }
         }
     }
