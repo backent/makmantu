@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import pempek from '@/assets/images/adaan.jpeg'
+import pempekMix from '@/assets/images/frozen/frozen_pempek_mix.jpeg'
+import pempekAdaan from '@/assets/images/frozen/frozen_pempek_adaan.jpeg'
+import pempekKulit from '@/assets/images/frozen/frozen_pempek_kulit.jpeg'
+import pempekKapalSelam from '@/assets/images/frozen/frozen_pempek_kapal_selam.jpeg'    
+import pempekLenjer from '@/assets/images/frozen/frozen_pempek_lenjer.jpeg'
 
 const slides = [
-  { img: pempek, title: 'Pempek Lenjer', text: 'Browse a wide variety of pempek, lenjer, and more. Customize your order perfectly.' },
-  { img: pempek, title: 'Pempek Adaan', text: 'Our pempek is made fresh daily with the finest ingredients.' },
-  { img: pempek, title: 'Pempek Kulit', text: 'Get your favorite pempek delivered to your doorstep in minutes.' },
-  { img: pempek, title: 'Pempek Kapal Selam', text: 'Get your favorite pempek delivered to your doorstep in minutes.' }
+  { img: pempekLenjer, title: 'Pempek Lenjer', text: 'Pempek kenyal khas Palembang, cocok untuk semua suasana.', price: 'Rp 20.000,00' },
+  { img: pempekAdaan, title: 'Pempek Adaan', text: 'Pempek goreng bulat, renyah di luar, lembut di dalam.', price: 'Rp 20.000,00' },
+  { img: pempekKulit, title: 'Pempek Kulit', text: 'Pempek kulit ikan gurih, favorit pecinta pempek.', price: 'Rp 18.000,00' },
+  { img: pempekKapalSelam, title: 'Pempek Kapal Selam', text: 'Pempek isi telur utuh, rasa gurih dan mengenyangkan.', price: 'Rp 20.000,00' },
+  { img: pempekMix, title: 'Pempek Mix', text: 'Paket isi berbagai pempek favorit, praktis & hemat!', price: 'Rp 20.000,00' }
 ]
 
 const currentIndex = ref(0)
@@ -86,17 +91,17 @@ onBeforeUnmount(() => {
         class="flex transition-all duration-700 ease-in-out"
         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
       >
-        <div v-for="(slide, i) in slides" :key="i" class="w-full flex-none h-[70%]">
-          <img :src="slide.img" alt="Slide Image" class="w-full h-full object-cover object-center" />
+        <div v-for="(slide, i) in slides" :key="i" class="w-full flex-none h-[70%] relative overflow-hidden">
+            <img :src="slide.img" alt="Slide Image" class="w-full h-full relative" style="left: 0; top: -80%;"  />
         </div>
       </div>
 
       <!-- Gradient overlay -->
-      <div class="absolute bottom-0 w-full h-24 bg-gradient-to-b from-transparent to-[#f4e6d0]/95 backdrop-blur-sm"></div>
+      <div class="absolute bottom-0 w-full h-10 bg-gradient-to-b from-transparent to-[#f4e6d0]/95 backdrop-blur-sm"></div>
     </div>
 
     <!-- Content -->
-    <div class="flex-1 flex flex-col items-center justify-between pb-8 bg-gradient-to-b from-[#f4e6d0] to-white">
+    <div class="flex-1 flex flex-col items-center justify-between pb-8 bg-gradient-to-b from-[#f4e6d0] to-white pt-3">
       <!-- Pagination dots -->
       <div class="flex space-x-2 mb-4">
         <span
@@ -115,8 +120,8 @@ onBeforeUnmount(() => {
         <p class="text-[#5c4639]/70 text-sm">
           {{ slides[currentIndex].text }}
         </p>
-        <p class="text-[#5c4639] text-xl font-semibold mt-2 mb-5">
-            Rp. 1000,00
+        <p class="text-[#5c4639] text-2xl font-semibold mt-2 mb-5">
+            {{ slides[currentIndex].price }}
         </p>
       </div>
 
