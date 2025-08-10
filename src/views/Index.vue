@@ -345,28 +345,35 @@ onBeforeUnmount(() => {
     </section>
 
     <!-- Second Page Section -->
+    <!-- About Section -->
     <section class="h-screen w-full flex flex-col snap-start snap-always bg-[#f9f1e6] px-6 py-20">
-      <div class="flex flex-col items-center justify-center h-full">
-        <h2 class="text-4xl font-bold text-[#af603b] mb-8">About Us</h2>
+      <div class="flex flex-col items-center justify-center h-full pt-15">
+        <h2 class="text-4xl font-bold text-[#af603b] mb-8">Tentang Kami</h2>
         <p class="text-[#5c4639] text-lg text-center mb-8">
-          We are passionate about bringing you the authentic taste of Palembang's finest Pempek. 
-          Our recipes have been perfected over generations to deliver the perfect balance of flavors 
-          and textures that make Pempek a beloved Indonesian delicacy.
+          Selamat datang di rumah pempek keluarga kami. Resep yang kami gunakan adalah warisan turun-temurun 
+          yang telah kami jaga keasliannya selama beberapa generasi. Setiap pempek dibuat dengan penuh 
+          perhatian dan cinta, menghadirkan cita rasa otentik yang khas dari keluarga kami.
         </p>
         <div class="grid grid-cols-2 gap-4 w-full max-w-md">
-          <div class="bg-white p-4 rounded-lg shadow-md text-center">
-            <h3 class="text-[#af603b] font-semibold mb-2">Premium Quality</h3>
-            <p class="text-[#5c4639]/70 text-sm">Fresh ingredients, authentic recipes</p>
+          <div class="bg-white p-4 rounded-lg shadow-md text-center hover-scale">
+            <h3 class="text-[#af603b] font-semibold mb-2">Kualitas Premium</h3>
+            <p class="text-[#5c4639]/70 text-sm">Bahan berkualitas, menggunakan tenggiri premium </p>
           </div>
-          <div class="bg-white p-4 rounded-lg shadow-md text-center">
-            <h3 class="text-[#af603b] font-semibold mb-2">Fast Delivery</h3>
-            <p class="text-[#5c4639]/70 text-sm">Quick and reliable shipping</p>
+          <div class="bg-white p-4 rounded-lg shadow-md text-center hover-scale">
+            <h3 class="text-[#af603b] font-semibold mb-2">Pengiriman Cepat</h3>
+            <p class="text-[#5c4639]/70 text-sm">Pelayanan pengiriman yang cepat dan andal</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-md text-center hover-scale">
+            <h3 class="text-[#af603b] font-semibold mb-2">Dibuat Fresh</h3>
+            <p class="text-[#5c4639]/70 text-sm">Memastikan kebersihan setiap bahan</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-md text-center hover-scale">
+            <h3 class="text-[#af603b] font-semibold mb-2">Rasa Otentik</h3>
+            <p class="text-[#5c4639]/70 text-sm">Cita rasa asli resep keluarga</p>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- Bottom Sheet -->
+    </section>    <!-- Bottom Sheet -->
     <div
       v-if="isBottomSheetOpen"
       class="fixed inset-0 z-50 transition-all duration-300"
