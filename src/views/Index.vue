@@ -31,6 +31,12 @@ import pempekKulit from '@/assets/images/frozen/frozen_pempek_kulit.jpeg'
 import pempekKapalSelam from '@/assets/images/frozen/frozen_pempek_kapal_selam.jpeg'    
 import pempekLenjer from '@/assets/images/frozen/frozen_pempek_lenjer.jpeg'
 
+import pempekGorengMix from '@/assets/images/goreng/pempek_mix_goreng.jpeg'
+import pempekGorengAdaan from '@/assets/images/goreng/pempek_adaan_goreng.jpeg'
+import pempekGorengKulit from '@/assets/images/goreng/pempek_kulit_goreng.jpeg'
+import pempekGorengKapalSelam from '@/assets/images/goreng/pempek_kapal_selam_goreng.jpeg'    
+import pempekGorengLenjer from '@/assets/images/goreng/pempek_lenjer_goreng.jpeg'
+
 const frozenSlides = [
   { img: pempekLenjer, title: 'Pempek Lenjer', text: 'Pempek berbentuk panjang dengan tekstur lembut dan rasa ikan tenggiri yang khas, cocok dinikmati bersama cuko hangat atau digoreng kembali.', price: 'Rp 20.000,00' },
   { img: pempekAdaan, title: 'Pempek Adaan', text: 'Pempek goreng berbentuk bulat dengan aroma daun bawang dan rempah, renyah di luar dan lembut di dalam, cocok jadi camilan atau lauk makan siang.', price: 'Rp 20.000,00' },
@@ -40,11 +46,11 @@ const frozenSlides = [
 ]
 
 const freshSlides = [
-  { img: pempekLenjer, title: 'Pempek Lenjer', text: 'Pempek lenjer segar siap santap dengan tekstur lembut dan rasa ikan tenggiri yang khas, disajikan dengan cuko hangat.', price: 'Rp 20.000,00' },
-  { img: pempekAdaan, title: 'Pempek Adaan', text: 'Pempek adaan segar yang baru digoreng, dengan aroma daun bawang dan rempah yang menggugah selera.', price: 'Rp 20.000,00' },
-  { img: pempekKulit, title: 'Pempek Kulit', text: 'Pempek kulit segar dengan tekstur renyah dan gurih, disajikan hangat dengan cuko spesial.', price: 'Rp 18.000,00' },
-  { img: pempekKapalSelam, title: 'Pempek Kapal Selam', text: 'Pempek kapal selam segar dengan isian telur yang masih hangat, disajikan dengan cuko spesial.', price: 'Rp 20.000,00' },
-  { img: pempekMix, title: 'Pempek Mix', text: 'Paket komplit pempek segar siap santap!', price: 'Rp 20.000,00' }
+  { img: pempekGorengLenjer, title: 'Pempek Lenjer', text: 'Pempek lenjer segar siap santap dengan tekstur lembut dan rasa ikan tenggiri yang khas, disajikan dengan cuko hangat.', price: 'Rp 20.000,00' },
+  { img: pempekGorengAdaan, title: 'Pempek Adaan', text: 'Pempek adaan segar yang baru digoreng, dengan aroma daun bawang dan rempah yang menggugah selera.', price: 'Rp 20.000,00' },
+  { img: pempekGorengKulit, title: 'Pempek Kulit', text: 'Pempek kulit segar dengan tekstur renyah dan gurih, disajikan hangat dengan cuko spesial.', price: 'Rp 18.000,00' },
+  { img: pempekGorengKapalSelam, title: 'Pempek Kapal Selam', text: 'Pempek kapal selam segar dengan isian telur yang masih hangat, disajikan dengan cuko spesial.', price: 'Rp 20.000,00' },
+  { img: pempekGorengMix, title: 'Pempek Mix', text: 'Paket komplit pempek segar siap santap!', price: 'Rp 20.000,00' }
 ]
 
 const frozenIndex = ref(0)
