@@ -132,6 +132,12 @@ const scrollToFrozenProducts = () => {
     section.scrollIntoView({ behavior: 'smooth' })
   }
 }
+const scrollToWelcome = () => {
+  const section = document.getElementById('welcome')
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 
 const scrollToFreshProducts = () => {
   const section = document.getElementById('fresh-products')
@@ -153,14 +159,17 @@ onBeforeUnmount(() => {
 <template>
   <div class="h-screen overflow-y-auto snap-y snap-mandatory bg-white" @scroll="handleScroll">
     <!-- Floating Navbar -->
-    <div class="fixed top-0 left-0 right-0 z-20 flex items-center justify-center px-4 pb-3 pt-5 bg-[#f9f1e6] backdrop-blur-sm w-full h-[60px]">
-      <div>
+    <div 
+      class="fixed top-0 left-0 right-0 z-20 flex items-center justify-center px-4 pb-3 pt-5 bg-[#f9f1e6] backdrop-blur-sm w-full h-[60px] transition-all duration-300"
+      :class="currentSection > 0 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'"
+    >
+      <div @click="scrollToWelcome()">
         <img src="@/assets/images/logohd-removebg-preview.png" alt="Logo" class="h-[60px]">
       </div>
     </div>
 
     <!-- Welcome Section -->
-    <section class="h-screen w-full flex flex-col snap-start snap-always bg-gradient-to-b from-[#f9f1e6] to-[#f4e6d0] relative px-6">
+    <section id="welcome" class="h-screen w-full flex flex-col snap-start snap-always bg-gradient-to-b from-[#f9f1e6] to-[#f4e6d0] relative px-6">
       <div class="flex flex-col items-center justify-center h-full">
         <img src="@/assets/images/logohd-removebg-preview.png" alt="Logo" class="w-64 mb-8 animate-fade-in">
         <h1 class="text-4xl font-bold text-[#af603b] mb-4 text-center animate-fade-in-delay-1">Katalog Menu</h1>
