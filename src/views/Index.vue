@@ -421,7 +421,7 @@ onBeforeUnmount(() => {
 <style>
 .order-now-button {
       position: absolute;
-      bottom: 60px;
+      bottom: 70px;
       left: 50%;
       transform: translateX(-50%);
       width: 90%;
