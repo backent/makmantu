@@ -220,7 +220,7 @@ onBeforeUnmount(() => {
     <!-- Fresh Products Section -->
     <section id="fresh-products" class="h-screen w-full flex flex-col snap-start snap-always relative bg-white">
       <div 
-        class="relative h-[60%] md:h-[70%] overflow-hidden"
+        class="relative h-[57%] md:h-[70%] overflow-hidden"
         @touchstart="handleTouchStart"
         @touchmove="handleTouchMove"
         @touchend="handleTouchEndFresh"
@@ -229,7 +229,7 @@ onBeforeUnmount(() => {
           class="flex transition-all duration-700 ease-in-out"
           :style="{ transform: `translateX(-${freshIndex * 100}%)` }"
         >
-          <div v-for="(slide, i) in freshSlides" :key="i" class="w-full flex-none h-[60%] md:h-[70%] relative overflow-hidden">
+          <div v-for="(slide, i) in freshSlides" :key="i" class="w-full flex-none h-[57%] md:h-[70%] relative overflow-hidden">
               <img :src="slide.img" alt="Slide Image" class="w-full h-full relative md:aspect-[16/9] lg:aspect-[16/7] md:object-cover" style="left: 0; top: -80%;"  />
           </div>
         </div>
@@ -272,7 +272,7 @@ onBeforeUnmount(() => {
     <!-- Frozen Products Section -->
     <section id="frozen-products" class="h-screen w-full flex flex-col snap-start snap-always relative bg-white">
       <div 
-        class="relative h-[60%] md:h-[70%] overflow-hidden"
+        class="relative h-[57%] md:h-[70%] overflow-hidden"
         @touchstart="handleTouchStart"
         @touchmove="handleTouchMove"
         @touchend="handleTouchEndFrozen"
@@ -281,7 +281,7 @@ onBeforeUnmount(() => {
           class="flex transition-all duration-700 ease-in-out"
           :style="{ transform: `translateX(-${frozenIndex * 100}%)` }"
         >
-          <div v-for="(slide, i) in frozenSlides" :key="i" class="w-full flex-none h-[60%] md:h-[70%] relative overflow-hidden">
+          <div v-for="(slide, i) in frozenSlides" :key="i" class="w-full flex-none h-[57%] md:h-[70%] relative overflow-hidden">
               <img :src="slide.img" alt="Slide Image" class="w-full h-full relative md:aspect-[16/9] lg:aspect-[16/7] md:object-cover frozen-object-position" style="left: 0; top: -80%; "  />
           </div>
         </div>
@@ -313,7 +313,7 @@ onBeforeUnmount(() => {
         <div class="w-full px-6">
           <button
             @click="openOrderOptions(freshSlides[freshIndex])"
-            class="order-now-button py-4 bg-[#6273a6] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 press-effect cursor-pointer"
+            class="order-now-button py-4 bg-[#6273a6] text-white rounded-full text-lg font-semibold hover:bg-[#6273a6]/90 transition-all duration-300 press-effect cursor-pointer"
           >
             Order Now
           </button>
@@ -413,18 +413,22 @@ onBeforeUnmount(() => {
 </template>
 
 <style>
-@media (width >= 48rem) { 
-  .frozen-object-position {
-    object-position: 0 70%;   
-  }
-}
 .order-now-button {
       position: absolute;
-      bottom: 50px;
+      bottom: 60px;
       left: 50%;
       transform: translateX(-50%);
       width: 90%;
 }
+@media (width >= 48rem) { 
+  .frozen-object-position {
+    object-position: 0 70%;   
+  }
+  .order-now-button {
+      bottom: 50px;
+  }
+}
+
 @keyframes fadeIn {
   from { 
     opacity: 0; 
