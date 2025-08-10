@@ -220,7 +220,7 @@ onBeforeUnmount(() => {
     <!-- Fresh Products Section -->
     <section id="fresh-products" class="h-screen w-full flex flex-col snap-start snap-always relative bg-white">
       <div 
-        class="relative h-[60%] overflow-hidden"
+        class="relative h-[60%] md:h-[70%] overflow-hidden"
         @touchstart="handleTouchStart"
         @touchmove="handleTouchMove"
         @touchend="handleTouchEndFresh"
@@ -229,8 +229,8 @@ onBeforeUnmount(() => {
           class="flex transition-all duration-700 ease-in-out"
           :style="{ transform: `translateX(-${freshIndex * 100}%)` }"
         >
-          <div v-for="(slide, i) in freshSlides" :key="i" class="w-full flex-none h-[60%] relative overflow-hidden">
-              <img :src="slide.img" alt="Slide Image" class="w-full h-full relative" style="left: 0; top: -80%;"  />
+          <div v-for="(slide, i) in freshSlides" :key="i" class="w-full flex-none h-[60%] md:h-[70%] relative overflow-hidden">
+              <img :src="slide.img" alt="Slide Image" class="w-full h-full relative md:aspect-[16/9] lg:aspect-[16/7] md:object-cover" style="left: 0; top: -80%;"  />
           </div>
         </div>
         <div class="absolute bottom-0 w-full h-10 bg-gradient-to-b from-transparent to-[#f4e6d0]/95 backdrop-blur-sm"></div>
@@ -261,7 +261,7 @@ onBeforeUnmount(() => {
         <div class="w-full px-6">
           <button
             @click="openOrderOptions(freshSlides[freshIndex])"
-            class="w-full py-4 bg-[#4b2926] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 hover-scale press-effect"
+            class="order-now-button py-4 bg-[#4b2926] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 press-effect cursor-pointer"
           >
             Order Now
           </button>
@@ -272,7 +272,7 @@ onBeforeUnmount(() => {
     <!-- Frozen Products Section -->
     <section id="frozen-products" class="h-screen w-full flex flex-col snap-start snap-always relative bg-white">
       <div 
-        class="relative h-[60%] overflow-hidden"
+        class="relative h-[60%] md:h-[70%] overflow-hidden"
         @touchstart="handleTouchStart"
         @touchmove="handleTouchMove"
         @touchend="handleTouchEndFrozen"
@@ -281,8 +281,8 @@ onBeforeUnmount(() => {
           class="flex transition-all duration-700 ease-in-out"
           :style="{ transform: `translateX(-${frozenIndex * 100}%)` }"
         >
-          <div v-for="(slide, i) in frozenSlides" :key="i" class="w-full flex-none h-[60%] relative overflow-hidden">
-              <img :src="slide.img" alt="Slide Image" class="w-full h-full relative" style="left: 0; top: -80%;"  />
+          <div v-for="(slide, i) in frozenSlides" :key="i" class="w-full flex-none h-[60%] md:h-[70%] relative overflow-hidden">
+              <img :src="slide.img" alt="Slide Image" class="w-full h-full relative md:aspect-[16/9] lg:aspect-[16/7] md:object-cover frozen-object-position" style="left: 0; top: -80%; "  />
           </div>
         </div>
         <div class="absolute bottom-0 w-full h-10 bg-gradient-to-b from-transparent to-[#b1b3b9]/95 backdrop-blur-sm"></div>
@@ -313,7 +313,7 @@ onBeforeUnmount(() => {
         <div class="w-full px-6">
           <button
             @click="openOrderOptions(freshSlides[freshIndex])"
-            class="w-full py-4 bg-[#6273a6] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 hover-scale press-effect"
+            class="order-now-button py-4 bg-[#6273a6] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 press-effect cursor-pointer"
           >
             Order Now
           </button>
@@ -413,6 +413,18 @@ onBeforeUnmount(() => {
 </template>
 
 <style>
+@media (width >= 48rem) { 
+  .frozen-object-position {
+    object-position: 0 70%;   
+  }
+}
+.order-now-button {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+}
 @keyframes fadeIn {
   from { 
     opacity: 0; 
