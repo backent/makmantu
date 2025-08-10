@@ -15,7 +15,13 @@ import pempekGorengKapalSelam from '@/assets/images/goreng/pempek_kapal_selam_go
 import pempekGorengLenjer from '@/assets/images/goreng/pempek_lenjer_goreng.jpeg'
 
 const frozenSlides = [
-  { img: pempekLenjer, title: 'Pempek Frozen Lenjer', text: 'Pempek berbentuk panjang dengan tekstur lembut dan rasa ikan tenggiri yang khas, cocok dinikmati bersama cuko hangat atau digoreng kembali.', price: 'Rp 20.000,00' },
+  { 
+    img: pempekLenjer, 
+    title: 'Pempek Frozen Lenjer', 
+    text: 'Pempek berbentuk panjang dengan tekstur lembut dan rasa ikan tenggiri yang khas, cocok dinikmati bersama cuko hangat atau digoreng kembali. Dibuat dengan resep autentik Palembang.',
+    price: 'Rp 20.000,00',
+    altText: 'Pempek Lenjer Frozen Palembang - Makmantu'
+  },
   { img: pempekAdaan, title: 'Pempek Frozen Adaan', text: 'Pempek goreng berbentuk bulat dengan aroma daun bawang dan rempah, renyah di luar dan lembut di dalam, cocok jadi camilan atau lauk makan siang.', price: 'Rp 20.000,00' },
   { img: pempekKulit, title: 'Pempek Frozen Kulit', text: 'Pempek khas dengan bahan utama kulit ikan tenggiri, digoreng hingga renyah dan gurih, menghadirkan rasa autentik yang kaya akan umami.', price: 'Rp 18.000,00' },
   { img: pempekKapalSelam, title: 'Pempek Frozen Kapal Selam', text: 'Pempek klasik berisi telur ayam yang dibalut adonan ikan tenggiri kenyal, disajikan dengan kuah cuko khas yang gurih dan segar.', price: 'Rp 20.000,00' },
