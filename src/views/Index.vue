@@ -9,7 +9,11 @@ style.textContent = `
   to { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-in {
-  animation: fadeIn 1s ease-out forwards;
+  animation:             @click="openOrderOptions(frozenSlides[frozenIndex])"
+            class="w-full py-4 bg-[#af603b] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 hover-scale press-effect"
+          >
+            Order Now
+          </button>n 1s ease-out forwards;
 }
 .animate-fade-in-delay-1 {
   animation: fadeIn 1s ease-out 0.3s forwards;
@@ -117,6 +121,9 @@ const openFreshLink = () => {
 }
 
 const currentSection = ref(0)
+const isBottomSheetOpen = ref(false)
+const selectedProduct = ref<{ title: string; price: string } | null>(null)
+
 const handleScroll = (event: Event) => {
   const target = event.target as HTMLElement
   const scrollPosition = target.scrollTop
@@ -124,6 +131,43 @@ const handleScroll = (event: Event) => {
   
   // Determine which section is currently visible
   currentSection.value = Math.round(scrollPosition / windowHeight)
+}
+
+const openOrderOptions = (product: { title: string; price: string }) => {
+  selectedProduct.value = product
+  isBottomSheetOpen.value = true
+}
+
+const closeBottomSheet = () => {
+  isBottomSheetOpen.value = false
+  selectedProduct.value = null
+}
+
+const orderViaWhatsApp = () => {
+  if (!selectedProduct.value) return
+  const params = new URLSearchParams({
+    text: `Halo, saya ingin memesan ${selectedProduct.value.title}`
+  })
+  window.open(`https://wa.me/6285779983483?${params.toString()}`, '_blank')
+  closeBottomSheet()
+}
+
+const orderViaGrabFood = () => {
+  // Replace with your actual Grab Food link
+  window.open('https://food.grab.com/your-restaurant-link', '_blank')
+  closeBottomSheet()
+}
+
+const orderViaGoFood = () => {
+  // Replace with your actual Go Food link
+  window.open('https://gofood.link/a/QTcZiz7', '_blank')
+  closeBottomSheet()
+}
+
+const orderViaShopeeFood = () => {
+  // Replace with your actual Shopee Food link
+  window.open('https://shopee.co.id/food/your-restaurant-link', '_blank')
+  closeBottomSheet()
 }
 
 const scrollToFrozenProducts = () => {
@@ -233,8 +277,8 @@ onBeforeUnmount(() => {
 
         <div class="w-full px-6">
           <button
-            @click="openFreshLink"
-            class="w-full py-4 bg-[#af603b] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-colors"
+            @click="openOrderOptions(freshSlides[freshIndex])"
+            class="w-full py-4 bg-[#af603b] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 hover-scale press-effect"
           >
             Order Now
           </button>
@@ -285,8 +329,8 @@ onBeforeUnmount(() => {
 
         <div class="w-full px-6">
           <button
-            @click="() => openFrozenLink()"
-            class="w-full py-4 bg-[#af603b] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-colors"
+            @click="openOrderOptions(freshSlides[freshIndex])"
+            class="w-full py-4 bg-[#af603b] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 hover-scale press-effect"
           >
             Order Now
           </button>
@@ -315,5 +359,65 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </section>
+
+    <!-- Bottom Sheet -->
+    <div
+      v-if="isBottomSheetOpen"
+      class="fixed inset-0 z-50 transition-all duration-300"
+      :class="isBottomSheetOpen ? 'backdrop-blur-sm' : 'bg-opacity-0'"
+      @click="closeBottomSheet"
+    >
+      <div
+        class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 animate-slide-up"
+        style="max-height: 70vh"
+        @click.stop
+      >
+        <!-- Handle/Pill -->
+        <div class="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-6"></div>
+
+        <!-- Title -->
+        <div class="text-center mb-6 animate-scale-in" style="animation-delay: 0.05s">
+          <!-- <h3 class="text-xl font-bold text-[#af603b] mb-2">Order Options</h3>
+          <p class="text-[#5c4639]/70 text-sm">
+            {{ selectedProduct?.title }}
+          </p>
+          <p class="text-[#5c4639] font-semibold animate-bounce-subtle">
+            {{ selectedProduct?.price }}
+          </p> -->
+        </div>
+
+        <!-- Options -->
+        <div class="space-y-4">
+          <!-- WhatsApp -->
+          <button
+            @click="orderViaWhatsApp"
+            class="w-full py-4 px-6 bg-[#25D366] text-white rounded-xl font-semibold flex items-center justify-center space-x-2 hover:bg-opacity-90 transition-all duration-300 hover-scale press-effect animate-scale-in"
+            style="animation-delay: 0.1s"
+          >
+            <span>Order via WhatsApp</span>
+          </button>
+
+
+          <!-- GoFood -->
+          <button
+            @click="orderViaGoFood"
+            class="w-full py-4 px-6 bg-[#00AA13] text-white rounded-xl font-semibold flex items-center justify-center space-x-2 hover:bg-opacity-90 transition-all duration-300 hover-scale press-effect animate-scale-in"
+            style="animation-delay: 0.3s"
+          >
+            <span>Order via GoFood</span>
+          </button>
+
+        </div>
+
+        <!-- Cancel Button -->
+        <button
+          @click="closeBottomSheet"
+          class="w-full py-4 px-6 mt-4 border-2 border-[#af603b] text-[#af603b] rounded-xl font-semibold hover:bg-[#af603b] hover:text-white transition-all duration-300 hover-scale press-effect animate-scale-in"
+          style="animation-delay: 0.5s"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
   </div>
 </template>
