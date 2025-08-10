@@ -41,14 +41,16 @@ pipeline {
                 echo "deploying with version ${params.RELEASE_VERSION}"
                 withCredentials([
                     file(credentialsId: 'makmantu-key', variable: 'SECRET_FILE_PATH'),
-                    string(credentialsId: 'makmantu-location', variable: 'SECRET_VPS')
+                    string(credentialsId: 'makmantu-location', variable: 'SECRET_VPS').
+                    string(credentialsId: 'makmantu-docker-user', variable: 'DOCKER_USER'),
+                    string(credentialsId: 'makmantu-docker-image-name', variable: 'DOCKER_IMAGE_NAME')
                 ]) {
                     withEnv(["REL_VER=${params.RELEASE_VERSION}"]) {
                         sh '''
                         ssh -o StrictHostKeyChecking=no -i "$SECRET_FILE_PATH" "$SECRET_VPS" \
-                        "sudo docker pull backent/pempek-makmantu:$REL_VER && \
+                        "sudo docker pull $DOCKER_USER/$DOCKER_IMAGE_NAME:$REL_VER && \
                         sudo docker rm -f makmantu-ui || true && \
-                        sudo docker run -dp 8080:80 --name makmantu-ui backent/pempek-makmantu:$REL_VER"
+                        sudo docker run -dp 8080:80 --name makmantu-ui $DOCKER_USER/$DOCKER_IMAGE_NAME:$REL_VER"
                         '''
                     }
                 }
@@ -58,7 +60,14 @@ pipeline {
     post {
         cleanup {
             sh('docker logout')
-            sh("docker image rm backent/pempek-makmantu:${params.RELEASE_VERSION}")
+            withCredentials([
+                string(credentialsId: 'makmantu-docker-user', variable: 'DOCKER_USER'),
+                string(credentialsId: 'makmantu-docker-image-name', variable: 'DOCKER_IMAGE_NAME')
+            ]) {
+                withEnv(["REL_VER=${params.RELEASE_VERSION}"]) {
+                sh('docker image rm $DOCKER_USER/$DOCKER_IMAGE_NAME:$REL_VER')
+                }
+            }
             sh('docker image prune -f')
         }
     }
