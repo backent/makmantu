@@ -20,8 +20,16 @@ pipeline {
                 expression { params.RELEASE_VERSION != '' }
             }
             steps {
-                echo 'build with version ${params.RELEASE_VERSION}'
-                sh("docker build -t backent/pempek-makmantu:${params.RELEASE_VERSION} .")
+                withCredentials([
+                    string(credentialsId: 'makmantu-docker-user', variable: 'DOCKER_USER'),
+                    string(credentialsId: 'makmantu-docker-image-name', variable: 'DOCKER_IMAGE_NAME')
+                ]) {
+                    withEnv(["REL_VER=${params.RELEASE_VERSION}"]) {
+                        echo 'build with version $REL_VER'
+                        sh('docker build -t $DOCKER_USER/$DOCKER_IMAGE_NAME:$REL_VER .')
+                    }
+                }
+                
             }
         }
         stage('Image Push') {
@@ -29,8 +37,16 @@ pipeline {
                 expression { params.RELEASE_VERSION != '' }
             }
             steps {
-                echo 'push image with version ${params.RELEASE_VERSION}'
-                sh("docker push backent/pempek-makmantu:${params.RELEASE_VERSION}")
+                withCredentials([
+                    string(credentialsId: 'makmantu-docker-user', variable: 'DOCKER_USER'),
+                    string(credentialsId: 'makmantu-docker-image-name', variable: 'DOCKER_IMAGE_NAME')
+                ]) {
+                    withEnv(["REL_VER=${params.RELEASE_VERSION}"]) {
+                        echo 'push image with version $REL_VER'
+                        sh("docker push $DOCKER_USER/$DOCKER_IMAGE_NAME:$REL_VER")
+                    }
+                }
+                
             }
         }
         stage('Deployment') {
@@ -41,7 +57,7 @@ pipeline {
                 echo "deploying with version ${params.RELEASE_VERSION}"
                 withCredentials([
                     file(credentialsId: 'makmantu-key', variable: 'SECRET_FILE_PATH'),
-                    string(credentialsId: 'makmantu-location', variable: 'SECRET_VPS').
+                    string(credentialsId: 'makmantu-location', variable: 'SECRET_VPS'),
                     string(credentialsId: 'makmantu-docker-user', variable: 'DOCKER_USER'),
                     string(credentialsId: 'makmantu-docker-image-name', variable: 'DOCKER_IMAGE_NAME')
                 ]) {
