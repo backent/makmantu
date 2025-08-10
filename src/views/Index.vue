@@ -1,30 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-// Add CSS for animations
-const style = document.createElement('style')
-style.textContent = `
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in {
-  animation:             @click="openOrderOptions(frozenSlides[frozenIndex])"
-            class="w-full py-4 bg-[#af603b] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 hover-scale press-effect"
-          >
-            Order Now
-          </button>n 1s ease-out forwards;
-}
-.animate-fade-in-delay-1 {
-  animation: fadeIn 1s ease-out 0.3s forwards;
-  opacity: 0;
-}
-.animate-fade-in-delay-2 {
-  animation: fadeIn 1s ease-out 0.6s forwards;
-  opacity: 0;
-}
-`
-document.head.appendChild(style)
+// Add CSS in the style block instead of JavaScript
 import pempekMix from '@/assets/images/frozen/frozen_pempek_mix.jpeg'
 import pempekAdaan from '@/assets/images/frozen/frozen_pempek_adaan.jpeg'
 import pempekKulit from '@/assets/images/frozen/frozen_pempek_kulit.jpeg'
@@ -434,3 +411,83 @@ onBeforeUnmount(() => {
     </div>
   </div>
 </template>
+
+<style>
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideUp {
+  from { 
+    transform: translateY(100%); 
+  }
+  to { 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    transform: scale(0.95); 
+    opacity: 0; 
+  }
+  to { 
+    transform: scale(1); 
+    opacity: 1; 
+  }
+}
+
+@keyframes bounce {
+  0%, 100% { 
+    transform: translateY(0); 
+  }
+  50% { 
+    transform: translateY(-5px); 
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-fade-in-delay-1 {
+  animation: fadeIn 1s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fadeIn 1s ease-out 0.6s forwards;
+  opacity: 0;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out forwards;
+}
+
+.animate-bounce-subtle {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+.press-effect:active {
+  transform: scale(0.98);
+}
+</style>
