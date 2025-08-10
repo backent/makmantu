@@ -66,7 +66,7 @@ pipeline {
                         ssh -o StrictHostKeyChecking=no -i "$SECRET_FILE_PATH" "$SECRET_VPS" \
                         "sudo docker pull $DOCKER_USER/$DOCKER_IMAGE_NAME:$REL_VER && \
                         sudo docker rm -f makmantu-ui || true && \
-                        sudo docker run -dp 127.0.0.1.8080:80 --name makmantu-ui $DOCKER_USER/$DOCKER_IMAGE_NAME:$REL_VER"
+                        sudo docker run -dp 127.0.0.1:8080:80 --name makmantu-ui $DOCKER_USER/$DOCKER_IMAGE_NAME:$REL_VER"
                         '''
                     }
                 }
