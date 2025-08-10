@@ -38,19 +38,19 @@ import pempekGorengKapalSelam from '@/assets/images/goreng/pempek_kapal_selam_go
 import pempekGorengLenjer from '@/assets/images/goreng/pempek_lenjer_goreng.jpeg'
 
 const frozenSlides = [
-  { img: pempekLenjer, title: 'Pempek Lenjer', text: 'Pempek berbentuk panjang dengan tekstur lembut dan rasa ikan tenggiri yang khas, cocok dinikmati bersama cuko hangat atau digoreng kembali.', price: 'Rp 20.000,00' },
-  { img: pempekAdaan, title: 'Pempek Adaan', text: 'Pempek goreng berbentuk bulat dengan aroma daun bawang dan rempah, renyah di luar dan lembut di dalam, cocok jadi camilan atau lauk makan siang.', price: 'Rp 20.000,00' },
-  { img: pempekKulit, title: 'Pempek Kulit', text: 'Pempek khas dengan bahan utama kulit ikan tenggiri, digoreng hingga renyah dan gurih, menghadirkan rasa autentik yang kaya akan umami.', price: 'Rp 18.000,00' },
-  { img: pempekKapalSelam, title: 'Pempek Kapal Selam', text: 'Pempek klasik berisi telur ayam yang dibalut adonan ikan tenggiri kenyal, disajikan dengan kuah cuko khas yang gurih dan segar.', price: 'Rp 20.000,00' },
-  { img: pempekMix, title: 'Pempek Mix', text: 'Paket isi berbagai pempek favorit, praktis & hemat!', price: 'Rp 20.000,00' }
+  { img: pempekLenjer, title: 'Pempek Frozen Lenjer', text: 'Pempek berbentuk panjang dengan tekstur lembut dan rasa ikan tenggiri yang khas, cocok dinikmati bersama cuko hangat atau digoreng kembali.', price: 'Rp 20.000,00' },
+  { img: pempekAdaan, title: 'Pempek Frozen Adaan', text: 'Pempek goreng berbentuk bulat dengan aroma daun bawang dan rempah, renyah di luar dan lembut di dalam, cocok jadi camilan atau lauk makan siang.', price: 'Rp 20.000,00' },
+  { img: pempekKulit, title: 'Pempek Frozen Kulit', text: 'Pempek khas dengan bahan utama kulit ikan tenggiri, digoreng hingga renyah dan gurih, menghadirkan rasa autentik yang kaya akan umami.', price: 'Rp 18.000,00' },
+  { img: pempekKapalSelam, title: 'Pempek Frozen Kapal Selam', text: 'Pempek klasik berisi telur ayam yang dibalut adonan ikan tenggiri kenyal, disajikan dengan kuah cuko khas yang gurih dan segar.', price: 'Rp 20.000,00' },
+  { img: pempekMix, title: 'Pempek Frozen Mix', text: 'Paket isi berbagai pempek favorit, praktis & hemat!', price: 'Rp 20.000,00' }
 ]
 
 const freshSlides = [
-  { img: pempekGorengLenjer, title: 'Pempek Lenjer', text: 'Pempek lenjer segar siap santap dengan tekstur lembut dan rasa ikan tenggiri yang khas, disajikan dengan cuko hangat.', price: 'Rp 20.000,00' },
-  { img: pempekGorengAdaan, title: 'Pempek Adaan', text: 'Pempek adaan segar yang baru digoreng, dengan aroma daun bawang dan rempah yang menggugah selera.', price: 'Rp 20.000,00' },
-  { img: pempekGorengKulit, title: 'Pempek Kulit', text: 'Pempek kulit segar dengan tekstur renyah dan gurih, disajikan hangat dengan cuko spesial.', price: 'Rp 18.000,00' },
-  { img: pempekGorengKapalSelam, title: 'Pempek Kapal Selam', text: 'Pempek kapal selam segar dengan isian telur yang masih hangat, disajikan dengan cuko spesial.', price: 'Rp 20.000,00' },
-  { img: pempekGorengMix, title: 'Pempek Mix', text: 'Paket komplit pempek segar siap santap!', price: 'Rp 20.000,00' }
+  { img: pempekGorengLenjer, title: 'Pempek Goreng Lenjer', text: 'Pempek lenjer segar siap santap dengan tekstur lembut dan rasa ikan tenggiri yang khas, disajikan dengan cuko hangat.', price: 'Rp 20.000,00' },
+  { img: pempekGorengAdaan, title: 'Pempek Goreng Adaan', text: 'Pempek adaan segar yang baru digoreng, dengan aroma daun bawang dan rempah yang menggugah selera.', price: 'Rp 20.000,00' },
+  { img: pempekGorengKulit, title: 'Pempek Goreng Kulit', text: 'Pempek kulit segar dengan tekstur renyah dan gurih, disajikan hangat dengan cuko spesial.', price: 'Rp 18.000,00' },
+  { img: pempekGorengKapalSelam, title: 'Pempek Goreng Kapal Selam', text: 'Pempek kapal selam segar dengan isian telur yang masih hangat, disajikan dengan cuko spesial.', price: 'Rp 20.000,00' },
+  { img: pempekGorengMix, title: 'Pempek Goreng Mix', text: 'Paket komplit pempek segar siap santap!', price: 'Rp 20.000,00' }
 ]
 
 const frozenIndex = ref(0)
@@ -270,7 +270,7 @@ onBeforeUnmount(() => {
         </div>
 
         <div class="text-center px-6">
-          <h1 class="text-3xl font-bold mb-2 text-[#af603b]">
+          <h1 class="text-3xl font-bold mb-2 text-[#4b2926]">
             {{ freshSlides[freshIndex].title }}
           </h1>
           <p class="text-[#5c4639]/70 text-sm">
@@ -284,7 +284,7 @@ onBeforeUnmount(() => {
         <div class="w-full px-6">
           <button
             @click="openOrderOptions(freshSlides[freshIndex])"
-            class="w-full py-4 bg-[#af603b] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 hover-scale press-effect"
+            class="w-full py-4 bg-[#4b2926] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 hover-scale press-effect"
           >
             Order Now
           </button>
@@ -308,10 +308,10 @@ onBeforeUnmount(() => {
               <img :src="slide.img" alt="Slide Image" class="w-full h-full relative" style="left: 0; top: -80%;"  />
           </div>
         </div>
-        <div class="absolute bottom-0 w-full h-10 bg-gradient-to-b from-transparent to-[#f4e6d0]/95 backdrop-blur-sm"></div>
+        <div class="absolute bottom-0 w-full h-10 bg-gradient-to-b from-transparent to-[#b1b3b9]/95 backdrop-blur-sm"></div>
       </div>
 
-      <div class="flex-1 flex flex-col items-center pb-8 bg-gradient-to-b from-[#f4e6d0] to-white pt-3">
+      <div class="flex-1 flex flex-col items-center pb-8 bg-gradient-to-b from-[#b1b3b9] to-white pt-3">
         <div class="flex space-x-2 mb-4">
           <span
             v-for="(slide, i) in frozenSlides"
@@ -322,7 +322,7 @@ onBeforeUnmount(() => {
         </div>
 
         <div class="text-center px-6">
-          <h1 class="text-3xl font-bold mb-2 text-[#af603b]">
+          <h1 class="text-3xl font-bold mb-2 text-[#6273a6]">
             {{ frozenSlides[frozenIndex].title }}
           </h1>
           <p class="text-[#5c4639]/70 text-sm">
@@ -336,7 +336,7 @@ onBeforeUnmount(() => {
         <div class="w-full px-6">
           <button
             @click="openOrderOptions(freshSlides[freshIndex])"
-            class="w-full py-4 bg-[#af603b] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 hover-scale press-effect"
+            class="w-full py-4 bg-[#6273a6] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 hover-scale press-effect"
           >
             Order Now
           </button>
