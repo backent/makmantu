@@ -39,13 +39,13 @@ pipeline {
             }
             steps {
                 echo 'deploying with version ${params.RELEASE_VERSION}'
-                withCredentials([file(credentialsId: 'makmantu-key', variable: 'SECRET_FILE_PATH'), string(credentialsId: 'makmantu-location', variable: 'SECRET_VPS')]) {
-                    sh """
-                    ssh -o StrictHostKeyChecking=no -i "${SECRET_FILE_PATH}" "${SECRET_VPS}" \
-                    "sudo docker pull backent/pempek-makmantu:${params.RELEASE_VERSION} && \
+                withCredentials([file(credentialsId: 'makmantu-key', variable: 'SECRET_FILE_PATH'), string(credentialsId: 'makmantu-location', variable: 'SECRET_VPS'), "REL_VER=${params.RELEASE_VERSION}"]) {
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no -i "$SECRET_FILE_PATH" "$SECRET_VPS" \
+                    "sudo docker pull backent/pempek-makmantu:$REL_VER && \
                     sudo docker rm -f makmantu-ui || true && \
-                    sudo docker run -dp 8080:80 --name makmantu-ui backent/pempek-makmantu:${params.RELEASE_VERSION}"
-                    """
+                    sudo docker run -dp 8080:80 --name makmantu-ui backent/pempek-makmantu:$REL_VER"
+                    '''
 
                 }
             }
