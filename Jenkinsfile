@@ -24,6 +24,15 @@ pipeline {
                 sh("docker build -t backent/pempek-makmantu:${params.RELEASE_VERSION} .")
             }
         }
+        stage('Image Push') {
+            when {
+                expression { params.RELEASE_VERSION != '' }
+            }
+            steps {
+                echo 'push image with version ${params.RELEASE_VERSION}'
+                sh("docker push backent/pempek-makmantu:${params.RELEASE_VERSION}")
+            }
+        }
         stage('Deployment') {
             when {
                 expression { params.RELEASE_VERSION != '' }
