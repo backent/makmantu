@@ -56,7 +56,7 @@ pipeline {
         }
     }
     post {
-        finally {
+        cleanup {
             sh('docker logout')
             sh('docker image rm backent/pempek-makmantu:${params.RELEASE_VERSION}')
             sh('docker image prune -f')
