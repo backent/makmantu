@@ -135,7 +135,7 @@ const closeBottomSheet = () => {
 const orderViaWhatsApp = () => {
   if (!selectedProduct.value) return
   const params = new URLSearchParams({
-    text: `Halo, saya ingin memesan ${selectedProduct.value.title}`
+    text: `Halo, saya ingin memesan pempek`
   })
   window.open(`https://wa.me/6285779983483?${params.toString()}`, '_blank')
   closeBottomSheet()
