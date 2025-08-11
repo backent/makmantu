@@ -256,9 +256,11 @@ onBeforeUnmount(() => {
           <h1 class="text-3xl font-bold mb-2 text-[#4b2926]">
             {{ freshSlides[freshIndex].title }}
           </h1>
-          <p class="text-[#5c4639]/70 text-sm">
-            {{ freshSlides[freshIndex].text }}
-          </p>
+          <div class="relative">
+            <p class="text-[#5c4639]/70 text-sm md:scrollbar-initial md:max-h-auto max-h-13 overflow-y-auto scrollbar-hide cs-mask-overflow" >
+              {{ freshSlides[freshIndex].text }}
+            </p>
+          </div>
           <p class="text-[#5c4639] text-2xl font-semibold my-1">
               {{ freshSlides[freshIndex].price }}
           </p>
@@ -269,7 +271,7 @@ onBeforeUnmount(() => {
             @click="openOrderOptions(freshSlides[freshIndex])"
             class="order-now-button py-4 bg-[#4b2926] text-white rounded-full text-lg font-semibold hover:bg-[#3a2419] transition-all duration-300 press-effect cursor-pointer"
           >
-            Order Now
+            Pesan Sekarang
           </button>
         </div>
       </div>
@@ -308,9 +310,11 @@ onBeforeUnmount(() => {
           <h1 class="text-3xl font-bold mb-2 text-[#6273a6]">
             {{ frozenSlides[frozenIndex].title }}
           </h1>
-          <p class="text-[#5c4639]/70 text-sm">
-            {{ frozenSlides[frozenIndex].text }}
-          </p>
+          <div class="relative">
+            <p class="text-[#5c4639]/70 text-sm md:scrollbar-initial md:max-h-auto max-h-13 overflow-y-auto scrollbar-hide cs-mask-overflow " >
+              {{ frozenSlides[frozenIndex].text }}
+            </p>
+          </div>
           <p class="text-[#5c4639] text-2xl font-semibold my-1">
               {{ frozenSlides[frozenIndex].price }}
           </p>
@@ -321,7 +325,7 @@ onBeforeUnmount(() => {
             @click="openOrderOptions(freshSlides[freshIndex])"
             class="order-now-button py-4 bg-[#6273a6] text-white rounded-full text-lg font-semibold hover:bg-[#6273a6]/90 transition-all duration-300 press-effect cursor-pointer"
           >
-            Order Now
+            Pesan Sekarang
           </button>
         </div>
       </div>
@@ -425,6 +429,11 @@ onBeforeUnmount(() => {
       left: 50%;
       transform: translateX(-50%);
       width: 90%;
+}
+@media (width < 48rem) { 
+  .cs-mask-overflow {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
 }
 @media (width >= 48rem) { 
   .frozen-object-position {
