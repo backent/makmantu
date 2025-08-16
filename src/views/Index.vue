@@ -1,18 +1,54 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-// Add CSS in the style block instead of JavaScript
+// Import frozen pempek images
 import pempekMix from '@/assets/images/frozen/frozen_pempek_mix.jpeg'
 import pempekAdaan from '@/assets/images/frozen/frozen_pempek_adaan.jpeg'
 import pempekKulit from '@/assets/images/frozen/frozen_pempek_kulit.jpeg'
 import pempekKapalSelam from '@/assets/images/frozen/frozen_pempek_kapal_selam.jpeg'    
 import pempekLenjer from '@/assets/images/frozen/frozen_pempek_lenjer.jpeg'
 
+// Import fresh pempek images
 import pempekGorengMix from '@/assets/images/goreng/pempek_mix_goreng.jpeg'
 import pempekGorengAdaan from '@/assets/images/goreng/pempek_adaan_goreng.jpeg'
 import pempekGorengKulit from '@/assets/images/goreng/pempek_kulit_goreng.jpeg'
 import pempekGorengKapalSelam from '@/assets/images/goreng/pempek_kapal_selam_goreng.jpeg'    
 import pempekGorengLenjer from '@/assets/images/goreng/pempek_lenjer_goreng.jpeg'
+
+// Slide indices and refs
+const frozenIndex = ref(0)
+const freshIndex = ref(0)
+const frozenSectionRef = ref<HTMLElement | null>(null)
+const freshSectionRef = ref<HTMLElement | null>(null)
+
+// Auto-slide related variables
+let frozenIntervalId: number | null = null
+let freshIntervalId: number | null = null
+let frozenInteractionTimeout: number | null = null
+let freshInteractionTimeout: number | null = null
+const SLIDE_INTERVAL = 2000 // 2 seconds
+const INTERACTION_PAUSE = 10000 // 10 seconds pause after interaction
+
+// Intersection Observer callback
+const handleIntersection = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+  entries.forEach(entry => {
+    if (entry.target.id === 'fresh-products') {
+      if (entry.isIntersecting) {
+        startAutoSlide(false)
+      } else {
+        if (freshIntervalId) clearInterval(freshIntervalId)
+        if (freshInteractionTimeout) clearTimeout(freshInteractionTimeout)
+      }
+    } else if (entry.target.id === 'frozen-products') {
+      if (entry.isIntersecting) {
+        startAutoSlide(true)
+      } else {
+        if (frozenIntervalId) clearInterval(frozenIntervalId)
+        if (frozenInteractionTimeout) clearTimeout(frozenInteractionTimeout)
+      }
+    }
+  })
+}
 
 const frozenSlides = [
   { 
@@ -36,9 +72,6 @@ const freshSlides = [
   { img: pempekGorengMix, title: 'Pempek Goreng Mix', text: 'Paket komplit pempek segar siap santap!', price: 'Rp 20.000,00' }
 ]
 
-const frozenIndex = ref(0)
-const freshIndex = ref(0)
-let intervalId: number
 
 // Touch tracking
 let startX = 0
@@ -60,9 +93,53 @@ const prevSlide = (isFrozen: boolean = true) => {
   }
 }
 
+const startAutoSlide = (isFrozen: boolean) => {
+  if (isFrozen) {
+    if (frozenIntervalId) clearInterval(frozenIntervalId)
+    frozenIntervalId = setInterval(() => nextSlide(true), SLIDE_INTERVAL)
+  } else {
+    if (freshIntervalId) clearInterval(freshIntervalId)
+    freshIntervalId = setInterval(() => nextSlide(false), SLIDE_INTERVAL)
+  }
+}
+
+const pauseAutoSlide = (isFrozen: boolean) => {
+  if (isFrozen) {
+    if (frozenIntervalId) {
+      clearInterval(frozenIntervalId)
+      frozenIntervalId = null
+    }
+    // Clear any existing timeout
+    if (frozenInteractionTimeout) {
+      clearTimeout(frozenInteractionTimeout)
+    }
+    // Set new timeout to restart slides
+    frozenInteractionTimeout = setTimeout(() => {
+      startAutoSlide(true)
+    }, INTERACTION_PAUSE)
+  } else {
+    if (freshIntervalId) {
+      clearInterval(freshIntervalId)
+      freshIntervalId = null
+    }
+    // Clear any existing timeout
+    if (freshInteractionTimeout) {
+      clearTimeout(freshInteractionTimeout)
+    }
+    // Set new timeout to restart slides
+    freshInteractionTimeout = setTimeout(() => {
+      startAutoSlide(false)
+    }, INTERACTION_PAUSE)
+  }
+}
+
+
 // Handle touch start
 const handleTouchStart = (e: TouchEvent) => {
   startX = e.touches[0].clientX
+  // Pause auto-slide on touch
+  pauseAutoSlide(true)
+  pauseAutoSlide(false)
 }
 
 // Handle touch move
@@ -182,10 +259,34 @@ const scrollToFreshProducts = () => {
 onMounted(() => {
   // Add smooth scrolling behavior
   document.documentElement.style.scrollBehavior = 'smooth'
+
+  // Set up Intersection Observer
+  const observer = new IntersectionObserver(handleIntersection, {
+    threshold: 0.5, // Trigger when at least 50% of the section is visible
+    root: null, // Use viewport as root
+  })
+
+  // Observe both sections
+  if (freshSectionRef.value) observer.observe(freshSectionRef.value)
+  if (frozenSectionRef.value) observer.observe(frozenSectionRef.value)
+
+  return () => {
+    // Clean up observer
+    if (freshSectionRef.value) observer.unobserve(freshSectionRef.value)
+    if (frozenSectionRef.value) observer.unobserve(frozenSectionRef.value)
+    observer.disconnect()
+  }
 })
 
 onBeforeUnmount(() => {
+  // Clean up scrolling behavior
   document.documentElement.style.scrollBehavior = 'auto'
+  
+  // Clean up intervals and timeouts
+  if (frozenIntervalId) clearInterval(frozenIntervalId)
+  if (freshIntervalId) clearInterval(freshIntervalId)
+  if (frozenInteractionTimeout) clearTimeout(frozenInteractionTimeout)
+  if (freshInteractionTimeout) clearTimeout(freshInteractionTimeout)
 })
 </script>
 
@@ -224,7 +325,10 @@ onBeforeUnmount(() => {
     </section>
 
     <!-- Fresh Products Section -->
-    <section id="fresh-products" class="h-screen w-full flex flex-col snap-start snap-always relative bg-white">
+    <section 
+      id="fresh-products" 
+      ref="freshSectionRef"
+      class="h-screen w-full flex flex-col snap-start snap-always relative bg-white">
       <div 
         class="relative h-[57%] md:h-[70%] overflow-hidden"
         @touchstart="handleTouchStart"
@@ -278,7 +382,10 @@ onBeforeUnmount(() => {
     </section>
 
     <!-- Frozen Products Section -->
-    <section id="frozen-products" class="h-screen w-full flex flex-col snap-start snap-always relative bg-white">
+    <section 
+      id="frozen-products" 
+      ref="frozenSectionRef"
+      class="h-screen w-full flex flex-col snap-start snap-always relative bg-white">
       <div 
         class="relative h-[57%] md:h-[70%] overflow-hidden"
         @touchstart="handleTouchStart"
