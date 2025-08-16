@@ -331,17 +331,119 @@ onBeforeUnmount(() => {
       </div>
     </section>
 
-    <!-- Second Page Section -->
-    <!-- About Section -->
-    <section class="h-screen w-full flex flex-col snap-start snap-always bg-[#f9f1e6] px-6 py-20">
-      <div class="flex flex-col items-center justify-center h-full pt-15">
+    <!-- Contact us Section -->
+    <section class="min-h-screen w-full flex flex-col snap-start snap-always bg-[#f9f1e6] px-4 md:px-6 py-10 md:py-20">
+      <div class="flex flex-col items-center w-full max-w-6xl mx-auto pt-[60px] md:pt-0">
+        <h2 class="text-3xl md:text-4xl font-bold text-[#af603b] mb-6 md:mb-8">Hubungi Kami</h2>
+        
+        <div class="flex flex-col md:flex-row gap-6 md:gap-8 w-full">
+          <!-- Contact Info Section for Mobile (Above Map) -->
+          <div class="flex flex-col gap-4 md:hidden w-full">
+            <!-- Social Media Links -->
+            <div class="bg-white p-4 rounded-lg shadow-md hover-scale">
+              <h3 class="text-[#af603b] font-bold text-lg mb-3">Sosial Media</h3>
+              <div class="flex justify-around">
+                <a href="https://www.instagram.com/pempek_makmantu?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
+                   class="flex flex-col items-center gap-1 text-[#5c4639] hover:text-[#E1306C] transition-colors">
+                  <img src="@/assets/images/instagram.png" class="w-10 h-10" alt="instagram-pempek-makmantu" />
+                  <span class="text-sm font-medium">Instagram</span>
+                </a>
+                <a href="https://wa.me/6285779983483" 
+                   class="flex flex-col items-center gap-1 text-[#5c4639] hover:text-[#25D366] transition-colors">
+                  <img src="@/assets/images/whatsapp.png" class="w-10 h-10" alt="whatsapp-pempek-makmantu" />
+                  <span class="text-sm font-medium">WhatsApp</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Quick Info -->
+            <div class="grid grid-cols-2 gap-4">
+              <!-- Business Hours -->
+              <div class="bg-white p-4 rounded-lg shadow-md hover-scale">
+                <h3 class="text-[#af603b] font-bold text-lg mb-2">Jam Buka</h3>
+                <p class="text-[#5c4639] text-sm">
+                  Senin - Sabtu<br>
+                  08.00 - 19.00
+                </p>
+              </div>
+
+              <!-- Area Coverage -->
+              <div class="bg-white p-4 rounded-lg shadow-md hover-scale">
+                <h3 class="text-[#af603b] font-bold text-lg mb-2">Area</h3>
+                <p class="text-[#5c4639] text-sm">
+                  Jakarta, Bogor,<br>
+                  Depok, Tangerang
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Map Section -->
+          <div class="flex-1 w-full">
+            <div class="rounded-lg overflow-hidden shadow-lg">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.7973746298953!2d106.84586348092263!3d-6.420075776993758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ebacb519b42f%3A0x9edeae5ede1f1f5e!2sPempek%20Mak%20Mantu!5e0!3m2!1sen!2sid!4v1755326075706!5m2!1sen!2sid" 
+                width="100%" 
+                height="300"
+                style="border:0;" 
+                allowfullscreen 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                class="w-full md:h-[400px]"
+              ></iframe>
+            </div>
+          </div>
+
+          <!-- Contact Info Section for Desktop (Beside Map) -->
+          <div class="hidden md:flex flex-1 flex-col gap-6">
+            <!-- Business Hours -->
+            <div class="bg-white p-6 rounded-lg shadow-md hover-scale">
+              <h3 class="text-[#af603b] font-bold text-xl mb-4">Jam Operasional</h3>
+              <p class="text-[#5c4639]">
+                Senin - Minggu:<br>
+                08.00 - 21.00 WIB
+              </p>
+            </div>
+
+            <!-- Social Media Links -->
+            <div class="bg-white p-6 rounded-lg shadow-md hover-scale">
+              <h3 class="text-[#af603b] font-bold text-xl mb-4">Sosial Media</h3>
+              <div class="flex flex-col gap-4">
+                <a href="https://www.instagram.com/pempek.makmantu" 
+                   class="flex items-center gap-3 text-[#5c4639] hover:text-[#E1306C] transition-colors">
+                  <img src="@/assets/images/instagram.png" class="w-10 h-10" alt="instagram-pempek-makmantu" />
+                  <span class="font-medium">@pempek.makmantu</span>
+                </a>
+                <a href="https://wa.me/6285779983483" 
+                   class="flex items-center gap-3 text-[#5c4639] hover:text-[#25D366] transition-colors">
+                  <img src="@/assets/images/whatsapp.png" class="w-10 h-10" alt="whatsapp-pempek-makmantu" />
+                  <span class="font-medium">+62 857-7998-3483</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Area Coverage -->
+            <div class="bg-white p-6 rounded-lg shadow-md hover-scale">
+              <h3 class="text-[#af603b] font-bold text-xl mb-4">Area Pengiriman</h3>
+              <p class="text-[#5c4639]">
+                Jakarta, Bogor, Depok, Tangerang
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+        <!-- About & Contact Section -->
+    <section class="min-h-screen w-full flex flex-col snap-start snap-always bg-gradient-to-b from-[#f9f1e6] to-[#f4e6d0] px-6 py-20">
+      <!-- About Us -->
+      <div class="flex flex-col items-center mb-16">
         <h2 class="text-4xl font-bold text-[#af603b] mb-8">Tentang Kami</h2>
-        <p class="text-[#5c4639] text-lg text-center mb-8">
+        <p class="text-[#5c4639] text-lg text-center mb-8 max-w-2xl">
           Selamat datang di rumah pempek keluarga kami. Resep yang kami gunakan adalah warisan turun-temurun 
           yang telah kami jaga keasliannya selama beberapa generasi. Setiap pempek dibuat dengan penuh 
           perhatian dan cinta, menghadirkan cita rasa otentik yang khas dari keluarga kami.
         </p>
-        <div class="grid grid-cols-2 gap-4 w-full max-w-md">
+        <div class="grid grid-cols-2 gap-4 w-full max-w-md mb-12">
           <div class="bg-white p-4 rounded-lg shadow-md text-center hover-scale">
             <h3 class="text-[#af603b] font-semibold mb-2">Kualitas Premium</h3>
             <p class="text-[#5c4639]/70 text-sm">Bahan berkualitas, menggunakan tenggiri premium </p>
@@ -360,7 +462,7 @@ onBeforeUnmount(() => {
           </div>
         </div>
       </div>
-    </section>    <!-- Bottom Sheet -->
+    </section>
     <div
       v-if="isBottomSheetOpen"
       class="fixed inset-0 z-50 transition-all duration-300"
