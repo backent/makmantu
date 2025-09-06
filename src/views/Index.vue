@@ -5,14 +5,14 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 import pempekMix from '@/assets/images/frozen/frozen_pempek_mix.jpeg'
 import pempekAdaan from '@/assets/images/frozen/frozen_pempek_adaan.jpeg'
 import pempekKulit from '@/assets/images/frozen/frozen_pempek_kulit.jpeg'
-import pempekKapalSelam from '@/assets/images/frozen/frozen_pempek_kapal_selam.jpeg'    
+import pempekKapalSelam from '@/assets/images/frozen/frozen_pempek_kapal_selam.jpeg'
 import pempekLenjer from '@/assets/images/frozen/frozen_pempek_lenjer.jpeg'
 
 // Import fresh pempek images
 import pempekGorengMix from '@/assets/images/goreng/pempek_mix_goreng.jpeg'
 import pempekGorengAdaan from '@/assets/images/goreng/pempek_adaan_goreng.jpeg'
 import pempekGorengKulit from '@/assets/images/goreng/pempek_kulit_goreng.jpeg'
-import pempekGorengKapalSelam from '@/assets/images/goreng/pempek_kapal_selam_goreng.jpeg'    
+import pempekGorengKapalSelam from '@/assets/images/goreng/pempek_kapal_selam_goreng.jpeg'
 import pempekGorengLenjer from '@/assets/images/goreng/pempek_lenjer_goreng.jpeg'
 
 // Slide indices and refs
@@ -28,10 +28,16 @@ let frozenInteractionTimeout: number | null = null
 let freshInteractionTimeout: number | null = null
 const SLIDE_INTERVAL = 2000 // 2 seconds
 const INTERACTION_PAUSE = 10000 // 10 seconds pause after interaction
+const WHATSAPP_LINK = 'https://wa.me/6285779983483'
+const GOFOOD_LINK = 'https://gofood.link/a/QTcZiz7'
+const SHOPEEFOOD_LINK = 'https://s.shopee.co.id/9zo7mnjtW2?share_channel_code=1'
 
 // Intersection Observer callback
-const handleIntersection = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-  entries.forEach(entry => {
+const handleIntersection = (
+  entries: IntersectionObserverEntry[],
+  observer: IntersectionObserver,
+) => {
+  entries.forEach((entry) => {
     if (entry.target.id === 'fresh-products') {
       if (entry.isIntersecting) {
         startAutoSlide(false)
@@ -51,27 +57,71 @@ const handleIntersection = (entries: IntersectionObserverEntry[], observer: Inte
 }
 
 const frozenSlides = [
-  { 
-    img: pempekLenjer, 
-    title: 'Pempek Frozen Lenjer', 
+  {
+    img: pempekLenjer,
+    title: 'Pempek Frozen Lenjer',
     text: 'Pempek berbentuk panjang dengan tekstur lembut dan rasa ikan tenggiri yang khas, cocok dinikmati bersama cuko hangat atau digoreng kembali. Dibuat dengan resep autentik Palembang.',
     price: 'Rp 20.000,00',
-    altText: 'Pempek Lenjer Frozen Palembang - Makmantu'
+    altText: 'Pempek Lenjer Frozen Palembang - Makmantu',
   },
-  { img: pempekAdaan, title: 'Pempek Frozen Adaan', text: 'Pempek goreng berbentuk bulat dengan aroma daun bawang dan rempah, renyah di luar dan lembut di dalam, cocok jadi camilan atau lauk makan siang.', price: 'Rp 20.000,00' },
-  { img: pempekKulit, title: 'Pempek Frozen Kulit', text: 'Pempek khas dengan bahan utama kulit ikan tenggiri, digoreng hingga renyah dan gurih, menghadirkan rasa autentik yang kaya akan umami.', price: 'Rp 18.000,00' },
-  { img: pempekKapalSelam, title: 'Pempek Frozen Kapal Selam', text: 'Pempek klasik berisi telur ayam yang dibalut adonan ikan tenggiri kenyal, disajikan dengan kuah cuko khas yang gurih dan segar.', price: 'Rp 20.000,00' },
-  { img: pempekMix, title: 'Pempek Frozen Mix', text: 'Paket isi berbagai pempek favorit, praktis & hemat!', price: 'Rp 20.000,00' }
+  {
+    img: pempekAdaan,
+    title: 'Pempek Frozen Adaan',
+    text: 'Pempek goreng berbentuk bulat dengan aroma daun bawang dan rempah, renyah di luar dan lembut di dalam, cocok jadi camilan atau lauk makan siang.',
+    price: 'Rp 20.000,00',
+  },
+  {
+    img: pempekKulit,
+    title: 'Pempek Frozen Kulit',
+    text: 'Pempek khas dengan bahan utama kulit ikan tenggiri, digoreng hingga renyah dan gurih, menghadirkan rasa autentik yang kaya akan umami.',
+    price: 'Rp 18.000,00',
+  },
+  {
+    img: pempekKapalSelam,
+    title: 'Pempek Frozen Kapal Selam',
+    text: 'Pempek klasik berisi telur ayam yang dibalut adonan ikan tenggiri kenyal, disajikan dengan kuah cuko khas yang gurih dan segar.',
+    price: 'Rp 20.000,00',
+  },
+  {
+    img: pempekMix,
+    title: 'Pempek Frozen Mix',
+    text: 'Paket isi berbagai pempek favorit, praktis & hemat!',
+    price: 'Rp 20.000,00',
+  },
 ]
 
 const freshSlides = [
-  { img: pempekGorengLenjer, title: 'Pempek Goreng Lenjer', text: 'Pempek lenjer segar siap santap dengan tekstur lembut dan rasa ikan tenggiri yang khas, disajikan dengan cuko hangat.', price: 'Rp 20.000,00' },
-  { img: pempekGorengAdaan, title: 'Pempek Goreng Adaan', text: 'Pempek adaan segar yang baru digoreng, dengan aroma daun bawang dan rempah yang menggugah selera.', price: 'Rp 20.000,00' },
-  { img: pempekGorengKulit, title: 'Pempek Goreng Kulit', text: 'Pempek kulit segar dengan tekstur renyah dan gurih, disajikan hangat dengan cuko spesial.', price: 'Rp 18.000,00' },
-  { img: pempekGorengKapalSelam, title: 'Pempek Goreng Kapal Selam', text: 'Pempek kapal selam segar dengan isian telur yang masih hangat, disajikan dengan cuko spesial.', price: 'Rp 20.000,00' },
-  { img: pempekGorengMix, title: 'Pempek Goreng Mix', text: 'Paket komplit pempek segar siap santap!', price: 'Rp 20.000,00' }
+  {
+    img: pempekGorengLenjer,
+    title: 'Pempek Goreng Lenjer',
+    text: 'Pempek lenjer segar siap santap dengan tekstur lembut dan rasa ikan tenggiri yang khas, disajikan dengan cuko hangat.',
+    price: 'Rp 20.000,00',
+  },
+  {
+    img: pempekGorengAdaan,
+    title: 'Pempek Goreng Adaan',
+    text: 'Pempek adaan segar yang baru digoreng, dengan aroma daun bawang dan rempah yang menggugah selera.',
+    price: 'Rp 20.000,00',
+  },
+  {
+    img: pempekGorengKulit,
+    title: 'Pempek Goreng Kulit',
+    text: 'Pempek kulit segar dengan tekstur renyah dan gurih, disajikan hangat dengan cuko spesial.',
+    price: 'Rp 18.000,00',
+  },
+  {
+    img: pempekGorengKapalSelam,
+    title: 'Pempek Goreng Kapal Selam',
+    text: 'Pempek kapal selam segar dengan isian telur yang masih hangat, disajikan dengan cuko spesial.',
+    price: 'Rp 20.000,00',
+  },
+  {
+    img: pempekGorengMix,
+    title: 'Pempek Goreng Mix',
+    text: 'Paket komplit pempek segar siap santap!',
+    price: 'Rp 20.000,00',
+  },
 ]
-
 
 // Touch tracking
 let startX = 0
@@ -133,7 +183,6 @@ const pauseAutoSlide = (isFrozen: boolean) => {
   }
 }
 
-
 // Handle touch start
 const handleTouchStart = (e: TouchEvent) => {
   startX = e.touches[0].clientX
@@ -173,17 +222,17 @@ const handleTouchEndFresh = () => {
 const openFrozenLink = () => {
   const currentSlide = frozenSlides[frozenIndex.value]
   const params = new URLSearchParams({
-    text: `Halo, saya ingin memesan ${currentSlide.title}`
+    text: `Halo, saya ingin memesan ${currentSlide.title}`,
   })
-  window.open(`https://wa.me/6285779983483?${params.toString()}`, '_blank')
+  window.open(`${WHATSAPP_LINK}?${params.toString()}`, '_blank')
 }
 
 const openFreshLink = () => {
   const currentSlide = freshSlides[freshIndex.value]
   const params = new URLSearchParams({
-    text: `Halo, saya ingin memesan ${currentSlide.title}`
+    text: `Halo, saya ingin memesan ${currentSlide.title}`,
   })
-  window.open(`https://wa.me/6285779983483?${params.toString()}`, '_blank')
+  window.open(`${WHATSAPP_LINK}?${params.toString()}`, '_blank')
 }
 
 const currentSection = ref(0)
@@ -194,7 +243,7 @@ const handleScroll = (event: Event) => {
   const target = event.target as HTMLElement
   const scrollPosition = target.scrollTop
   const windowHeight = window.innerHeight
-  
+
   // Determine which section is currently visible
   currentSection.value = Math.round(scrollPosition / windowHeight)
 }
@@ -212,9 +261,9 @@ const closeBottomSheet = () => {
 const orderViaWhatsApp = () => {
   if (!selectedProduct.value) return
   const params = new URLSearchParams({
-    text: `Halo, saya ingin memesan pempek`
+    text: `Halo, saya ingin memesan pempek`,
   })
-  window.open(`https://wa.me/6285779983483?${params.toString()}`, '_blank')
+  window.open(`${WHATSAPP_LINK}?${params.toString()}`, '_blank')
   closeBottomSheet()
 }
 
@@ -226,7 +275,7 @@ const orderViaGrabFood = () => {
 
 const orderViaGoFood = () => {
   // Replace with your actual Go Food link
-  window.open('https://gofood.link/a/QTcZiz7', '_blank')
+  window.open(GOFOOD_LINK, '_blank')
   closeBottomSheet()
 }
 
@@ -281,7 +330,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   // Clean up scrolling behavior
   document.documentElement.style.scrollBehavior = 'auto'
-  
+
   // Clean up intervals and timeouts
   if (frozenIntervalId) clearInterval(frozenIntervalId)
   if (freshIntervalId) clearInterval(freshIntervalId)
@@ -293,20 +342,29 @@ onBeforeUnmount(() => {
 <template>
   <div class="h-screen overflow-y-auto snap-y snap-mandatory bg-white" @scroll="handleScroll">
     <!-- Floating Navbar -->
-    <div 
+    <div
       class="fixed top-0 left-0 right-0 z-20 flex items-center justify-center px-4 pb-3 pt-5 bg-[#f9f1e6] backdrop-blur-sm w-full h-[60px] transition-all duration-300"
       :class="currentSection > 0 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'"
     >
       <div @click="scrollToWelcome()">
-        <img src="@/assets/images/logohd-removebg-preview.png" alt="Logo" class="h-[60px]">
+        <img src="@/assets/images/logohd-removebg-preview.png" alt="Logo" class="h-[60px]" />
       </div>
     </div>
 
     <!-- Welcome Section -->
-    <section id="welcome" class="h-screen w-full flex flex-col snap-start snap-always bg-gradient-to-b from-[#f9f1e6] to-[#f4e6d0] relative px-6">
+    <section
+      id="welcome"
+      class="h-screen w-full flex flex-col snap-start snap-always bg-gradient-to-b from-[#f9f1e6] to-[#f4e6d0] relative px-6"
+    >
       <div class="flex flex-col items-center justify-center h-full">
-        <img src="@/assets/images/logohd-removebg-preview.png" alt="Logo" class="w-64 mb-8 animate-fade-in">
-        <h1 class="text-4xl font-bold text-[#af603b] mb-4 text-center animate-fade-in-delay-1">Katalog Menu</h1>
+        <img
+          src="@/assets/images/logohd-removebg-preview.png"
+          alt="Logo"
+          class="w-64 mb-8 animate-fade-in"
+        />
+        <h1 class="text-4xl font-bold text-[#af603b] mb-4 text-center animate-fade-in-delay-1">
+          Katalog Menu
+        </h1>
         <div class="flex flex-col space-y-4 w-full px-6 animate-fade-in-delay-2">
           <button
             @click="scrollToFreshProducts"
@@ -325,11 +383,12 @@ onBeforeUnmount(() => {
     </section>
 
     <!-- Fresh Products Section -->
-    <section 
-      id="fresh-products" 
+    <section
+      id="fresh-products"
       ref="freshSectionRef"
-      class="h-screen w-full flex flex-col snap-start snap-always relative bg-white">
-      <div 
+      class="h-screen w-full flex flex-col snap-start snap-always relative bg-white"
+    >
+      <div
         class="relative h-[57%] md:h-[70%] overflow-hidden"
         @touchstart="handleTouchStart"
         @touchmove="handleTouchMove"
@@ -339,14 +398,27 @@ onBeforeUnmount(() => {
           class="flex transition-all duration-700 ease-in-out"
           :style="{ transform: `translateX(-${freshIndex * 100}%)` }"
         >
-          <div v-for="(slide, i) in freshSlides" :key="i" class="w-full flex-none h-[57%] md:h-[70%] relative overflow-hidden">
-              <img :src="slide.img" alt="Slide Image" class="w-full h-full relative md:aspect-[16/9] lg:aspect-[16/7] md:object-cover" style="left: 0; top: -80%;"  />
+          <div
+            v-for="(slide, i) in freshSlides"
+            :key="i"
+            class="w-full flex-none h-[57%] md:h-[70%] relative overflow-hidden"
+          >
+            <img
+              :src="slide.img"
+              alt="Slide Image"
+              class="w-full h-full relative md:aspect-[16/9] lg:aspect-[16/7] md:object-cover"
+              style="left: 0; top: -80%"
+            />
           </div>
         </div>
-        <div class="absolute bottom-0 w-full h-10 bg-gradient-to-b from-transparent to-[#f4e6d0]/95 backdrop-blur-sm"></div>
+        <div
+          class="absolute bottom-0 w-full h-10 bg-gradient-to-b from-transparent to-[#f4e6d0]/95 backdrop-blur-sm"
+        ></div>
       </div>
 
-      <div class="flex-1 flex flex-col items-center pb-8 bg-gradient-to-b from-[#f4e6d0] to-white pt-3">
+      <div
+        class="flex-1 flex flex-col items-center pb-8 bg-gradient-to-b from-[#f4e6d0] to-white pt-3"
+      >
         <div class="flex space-x-2 mb-4">
           <span
             v-for="(slide, i) in freshSlides"
@@ -361,12 +433,14 @@ onBeforeUnmount(() => {
             {{ freshSlides[freshIndex].title }}
           </h1>
           <div class="relative">
-            <p class="text-[#5c4639]/70 text-sm md:scrollbar-initial md:max-h-auto max-h-13 overflow-y-auto scrollbar-hide cs-mask-overflow" >
+            <p
+              class="text-[#5c4639]/70 text-sm md:scrollbar-initial md:max-h-auto max-h-13 overflow-y-auto scrollbar-hide cs-mask-overflow"
+            >
               {{ freshSlides[freshIndex].text }}
             </p>
           </div>
           <p class="text-[#5c4639] text-2xl font-semibold my-1">
-              {{ freshSlides[freshIndex].price }}
+            {{ freshSlides[freshIndex].price }}
           </p>
         </div>
 
@@ -382,11 +456,12 @@ onBeforeUnmount(() => {
     </section>
 
     <!-- Frozen Products Section -->
-    <section 
-      id="frozen-products" 
+    <section
+      id="frozen-products"
       ref="frozenSectionRef"
-      class="h-screen w-full flex flex-col snap-start snap-always relative bg-white">
-      <div 
+      class="h-screen w-full flex flex-col snap-start snap-always relative bg-white"
+    >
+      <div
         class="relative h-[57%] md:h-[70%] overflow-hidden"
         @touchstart="handleTouchStart"
         @touchmove="handleTouchMove"
@@ -396,14 +471,27 @@ onBeforeUnmount(() => {
           class="flex transition-all duration-700 ease-in-out"
           :style="{ transform: `translateX(-${frozenIndex * 100}%)` }"
         >
-          <div v-for="(slide, i) in frozenSlides" :key="i" class="w-full flex-none h-[57%] md:h-[70%] relative overflow-hidden">
-              <img :src="slide.img" alt="Slide Image" class="w-full h-full relative md:aspect-[16/9] lg:aspect-[16/7] md:object-cover frozen-object-position" style="left: 0; top: -80%; "  />
+          <div
+            v-for="(slide, i) in frozenSlides"
+            :key="i"
+            class="w-full flex-none h-[57%] md:h-[70%] relative overflow-hidden"
+          >
+            <img
+              :src="slide.img"
+              alt="Slide Image"
+              class="w-full h-full relative md:aspect-[16/9] lg:aspect-[16/7] md:object-cover frozen-object-position"
+              style="left: 0; top: -80%"
+            />
           </div>
         </div>
-        <div class="absolute bottom-0 w-full h-10 bg-gradient-to-b from-transparent to-[#b1b3b9]/95 backdrop-blur-sm"></div>
+        <div
+          class="absolute bottom-0 w-full h-10 bg-gradient-to-b from-transparent to-[#b1b3b9]/95 backdrop-blur-sm"
+        ></div>
       </div>
 
-      <div class="flex-1 flex flex-col items-center pb-8 bg-gradient-to-b from-[#b1b3b9] to-white pt-3">
+      <div
+        class="flex-1 flex flex-col items-center pb-8 bg-gradient-to-b from-[#b1b3b9] to-white pt-3"
+      >
         <div class="flex space-x-2 mb-4">
           <span
             v-for="(slide, i) in frozenSlides"
@@ -418,12 +506,14 @@ onBeforeUnmount(() => {
             {{ frozenSlides[frozenIndex].title }}
           </h1>
           <div class="relative">
-            <p class="text-[#5c4639]/70 text-sm md:scrollbar-initial md:max-h-auto max-h-13 overflow-y-auto scrollbar-hide cs-mask-overflow " >
+            <p
+              class="text-[#5c4639]/70 text-sm md:scrollbar-initial md:max-h-auto max-h-13 overflow-y-auto scrollbar-hide cs-mask-overflow"
+            >
               {{ frozenSlides[frozenIndex].text }}
             </p>
           </div>
           <p class="text-[#5c4639] text-2xl font-semibold my-1">
-              {{ frozenSlides[frozenIndex].price }}
+            {{ frozenSlides[frozenIndex].price }}
           </p>
         </div>
 
@@ -439,10 +529,12 @@ onBeforeUnmount(() => {
     </section>
 
     <!-- Contact us Section -->
-    <section class="min-h-screen w-full flex flex-col snap-start snap-always bg-[#f9f1e6] px-4 md:px-6 py-10 md:py-20">
+    <section
+      class="min-h-screen w-full flex flex-col snap-start snap-always bg-[#f9f1e6] px-4 md:px-6 py-10 md:py-20"
+    >
       <div class="flex flex-col items-center w-full max-w-6xl mx-auto pt-[60px] md:pt-0">
         <h2 class="text-3xl md:text-4xl font-bold text-[#af603b] mb-6 md:mb-8">Hubungi Kami</h2>
-        
+
         <div class="flex flex-col md:flex-row gap-6 md:gap-8 w-full">
           <!-- Contact Info Section for Mobile (Above Map) -->
           <div class="flex flex-col gap-4 md:hidden w-full">
@@ -450,14 +542,26 @@ onBeforeUnmount(() => {
             <div class="bg-white p-4 rounded-lg shadow-md hover-scale">
               <h3 class="text-[#af603b] font-bold text-lg mb-3">Sosial Media</h3>
               <div class="flex justify-around">
-                <a href="https://www.instagram.com/pempek_makmantu?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
-                   class="flex flex-col items-center gap-1 text-[#5c4639] hover:text-[#E1306C] transition-colors">
-                  <img src="@/assets/images/instagram.png" class="w-10 h-10" alt="instagram-pempek-makmantu" />
+                <a
+                  href="https://www.instagram.com/pempek_makmantu?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                  class="flex flex-col items-center gap-1 text-[#5c4639] hover:text-[#E1306C] transition-colors"
+                >
+                  <img
+                    src="@/assets/images/instagram.png"
+                    class="w-10 h-10"
+                    alt="instagram-pempek-makmantu"
+                  />
                   <span class="text-sm font-medium">Instagram</span>
                 </a>
-                <a href="https://wa.me/6285779983483" 
-                   class="flex flex-col items-center gap-1 text-[#5c4639] hover:text-[#25D366] transition-colors">
-                  <img src="@/assets/images/whatsapp.png" class="w-10 h-10" alt="whatsapp-pempek-makmantu" />
+                <a
+                  href="https://wa.me/6285779983483"
+                  class="flex flex-col items-center gap-1 text-[#5c4639] hover:text-[#25D366] transition-colors"
+                >
+                  <img
+                    src="@/assets/images/whatsapp.png"
+                    class="w-10 h-10"
+                    alt="whatsapp-pempek-makmantu"
+                  />
                   <span class="text-sm font-medium">WhatsApp</span>
                 </a>
               </div>
@@ -469,7 +573,7 @@ onBeforeUnmount(() => {
               <div class="bg-white p-4 rounded-lg shadow-md hover-scale">
                 <h3 class="text-[#af603b] font-bold text-lg mb-2">Jam Buka</h3>
                 <p class="text-[#5c4639] text-sm">
-                  Senin - Sabtu<br>
+                  Senin - Sabtu<br />
                   08.00 - 19.00
                 </p>
               </div>
@@ -478,7 +582,7 @@ onBeforeUnmount(() => {
               <div class="bg-white p-4 rounded-lg shadow-md hover-scale">
                 <h3 class="text-[#af603b] font-bold text-lg mb-2">Area</h3>
                 <p class="text-[#5c4639] text-sm">
-                  Jakarta, Bogor,<br>
+                  Jakarta, Bogor,<br />
                   Depok, Tangerang
                 </p>
               </div>
@@ -488,13 +592,13 @@ onBeforeUnmount(() => {
           <!-- Map Section -->
           <div class="flex-1 w-full">
             <div class="rounded-lg overflow-hidden shadow-lg">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.7973746298953!2d106.84586348092263!3d-6.420075776993758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ebacb519b42f%3A0x9edeae5ede1f1f5e!2sPempek%20Mak%20Mantu!5e0!3m2!1sen!2sid!4v1755326075706!5m2!1sen!2sid" 
-                width="100%" 
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.7973746298953!2d106.84586348092263!3d-6.420075776993758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ebacb519b42f%3A0x9edeae5ede1f1f5e!2sPempek%20Mak%20Mantu!5e0!3m2!1sen!2sid!4v1755326075706!5m2!1sen!2sid"
+                width="100%"
                 height="300"
-                style="border:0;" 
-                allowfullscreen 
-                loading="lazy" 
+                style="border: 0"
+                allowfullscreen
+                loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
                 class="w-full md:h-[400px]"
               ></iframe>
@@ -507,7 +611,7 @@ onBeforeUnmount(() => {
             <div class="bg-white p-6 rounded-lg shadow-md hover-scale">
               <h3 class="text-[#af603b] font-bold text-xl mb-4">Jam Operasional</h3>
               <p class="text-[#5c4639]">
-                Senin - Minggu:<br>
+                Senin - Minggu:<br />
                 08.00 - 21.00 WIB
               </p>
             </div>
@@ -516,14 +620,26 @@ onBeforeUnmount(() => {
             <div class="bg-white p-6 rounded-lg shadow-md hover-scale">
               <h3 class="text-[#af603b] font-bold text-xl mb-4">Sosial Media</h3>
               <div class="flex flex-col gap-4">
-                <a href="https://www.instagram.com/pempek.makmantu" 
-                   class="flex items-center gap-3 text-[#5c4639] hover:text-[#E1306C] transition-colors">
-                  <img src="@/assets/images/instagram.png" class="w-10 h-10" alt="instagram-pempek-makmantu" />
+                <a
+                  href="https://www.instagram.com/pempek.makmantu"
+                  class="flex items-center gap-3 text-[#5c4639] hover:text-[#E1306C] transition-colors"
+                >
+                  <img
+                    src="@/assets/images/instagram.png"
+                    class="w-10 h-10"
+                    alt="instagram-pempek-makmantu"
+                  />
                   <span class="font-medium">@pempek.makmantu</span>
                 </a>
-                <a href="https://wa.me/6285779983483" 
-                   class="flex items-center gap-3 text-[#5c4639] hover:text-[#25D366] transition-colors">
-                  <img src="@/assets/images/whatsapp.png" class="w-10 h-10" alt="whatsapp-pempek-makmantu" />
+                <a
+                  href="https://wa.me/6285779983483"
+                  class="flex items-center gap-3 text-[#5c4639] hover:text-[#25D366] transition-colors"
+                >
+                  <img
+                    src="@/assets/images/whatsapp.png"
+                    class="w-10 h-10"
+                    alt="whatsapp-pempek-makmantu"
+                  />
                   <span class="font-medium">+62 857-7998-3483</span>
                 </a>
               </div>
@@ -532,28 +648,29 @@ onBeforeUnmount(() => {
             <!-- Area Coverage -->
             <div class="bg-white p-6 rounded-lg shadow-md hover-scale">
               <h3 class="text-[#af603b] font-bold text-xl mb-4">Area Pengiriman</h3>
-              <p class="text-[#5c4639]">
-                Jakarta, Bogor, Depok, Tangerang
-              </p>
+              <p class="text-[#5c4639]">Jakarta, Bogor, Depok, Tangerang</p>
             </div>
           </div>
         </div>
       </div>
     </section>
-        <!-- About & Contact Section -->
-    <section class="min-h-screen w-full flex flex-col snap-start snap-always bg-gradient-to-b from-[#f9f1e6] to-[#f4e6d0] px-6 py-20">
+    <!-- About & Contact Section -->
+    <section
+      class="min-h-screen w-full flex flex-col snap-start snap-always bg-gradient-to-b from-[#f9f1e6] to-[#f4e6d0] px-6 py-20"
+    >
       <!-- About Us -->
       <div class="flex flex-col items-center mb-16">
         <h2 class="text-4xl font-bold text-[#af603b] mb-8">Tentang Kami</h2>
         <p class="text-[#5c4639] text-lg text-center mb-8 max-w-2xl">
-          Selamat datang di rumah pempek keluarga kami. Resep yang kami gunakan adalah warisan turun-temurun 
-          yang telah kami jaga keasliannya selama beberapa generasi. Setiap pempek dibuat dengan penuh 
-          perhatian dan cinta, menghadirkan cita rasa otentik yang khas dari keluarga kami.
+          Selamat datang di rumah pempek keluarga kami. Resep yang kami gunakan adalah warisan
+          turun-temurun yang telah kami jaga keasliannya selama beberapa generasi. Setiap pempek
+          dibuat dengan penuh perhatian dan cinta, menghadirkan cita rasa otentik yang khas dari
+          keluarga kami.
         </p>
         <div class="grid grid-cols-2 gap-4 w-full max-w-md mb-12">
           <div class="bg-white p-4 rounded-lg shadow-md text-center hover-scale">
             <h3 class="text-[#af603b] font-semibold mb-2">Kualitas Premium</h3>
-            <p class="text-[#5c4639]/70 text-sm">Bahan berkualitas, menggunakan tenggiri premium </p>
+            <p class="text-[#5c4639]/70 text-sm">Bahan berkualitas, menggunakan tenggiri premium</p>
           </div>
           <div class="bg-white p-4 rounded-lg shadow-md text-center hover-scale">
             <h3 class="text-[#af603b] font-semibold mb-2">Pengiriman Cepat</h3>
@@ -606,16 +723,15 @@ onBeforeUnmount(() => {
             <span>Order via WhatsApp</span>
           </button>
 
-
           <!-- GoFood -->
-          <button
-            @click="orderViaGoFood"
-            class="w-full py-4 px-6 bg-[#00AA13] text-white rounded-xl font-semibold flex items-center justify-center space-x-2 hover:bg-opacity-90 transition-all duration-300 hover-scale press-effect animate-scale-in"
+          <a
+            :href="SHOPEEFOOD_LINK"
+            class="w-full py-4 px-6 bg-[#ec643a] text-white rounded-xl font-semibold flex items-center justify-center space-x-2 hover:bg-opacity-90 transition-all duration-300 hover-scale press-effect animate-scale-in"
+            target="_blank"
             style="animation-delay: 0.3s"
           >
-            <span>Order via GoFood</span>
-          </button>
-
+            <span>Order via ShopeeFood</span>
+          </a>
         </div>
 
         <!-- Cancel Button -->
@@ -633,63 +749,64 @@ onBeforeUnmount(() => {
 
 <style>
 .order-now-button {
-      position: absolute;
-      bottom: 70px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
 }
-@media (width < 48rem) { 
+@media (width < 48rem) {
   .cs-mask-overflow {
     mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
   }
 }
-@media (width >= 48rem) { 
+@media (width >= 48rem) {
   .frozen-object-position {
-    object-position: 0 70%;   
+    object-position: 0 70%;
   }
   .order-now-button {
-      bottom: 50px;
+    bottom: 50px;
   }
 }
 
 @keyframes fadeIn {
-  from { 
-    opacity: 0; 
-    transform: translateY(20px); 
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes slideUp {
-  from { 
-    transform: translateY(100%); 
+  from {
+    transform: translateY(100%);
   }
-  to { 
-    transform: translateY(0); 
+  to {
+    transform: translateY(0);
   }
 }
 
 @keyframes scaleIn {
-  from { 
-    transform: scale(0.95); 
-    opacity: 0; 
+  from {
+    transform: scale(0.95);
+    opacity: 0;
   }
-  to { 
-    transform: scale(1); 
-    opacity: 1; 
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
 @keyframes bounce {
-  0%, 100% { 
-    transform: translateY(0); 
+  0%,
+  100% {
+    transform: translateY(0);
   }
-  50% { 
-    transform: translateY(-5px); 
+  50% {
+    transform: translateY(-5px);
   }
 }
 
