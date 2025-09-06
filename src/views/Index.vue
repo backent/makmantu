@@ -30,7 +30,7 @@ const SLIDE_INTERVAL = 2000 // 2 seconds
 const INTERACTION_PAUSE = 10000 // 10 seconds pause after interaction
 const WHATSAPP_LINK = 'https://wa.me/6285779983483'
 const GOFOOD_LINK = 'https://gofood.link/a/QTcZiz7'
-const SHOPEEFOOD_LINK = 'https://s.shopee.co.id/9zo7mnjtW2?share_channel_code=1'
+const SHOPEE_LINK = 'https://s.shopee.co.id/9zo7mnjtW2?share_channel_code=1'
 
 // Intersection Observer callback
 const handleIntersection = (
@@ -725,12 +725,12 @@ onBeforeUnmount(() => {
 
           <!-- GoFood -->
           <a
-            :href="SHOPEEFOOD_LINK"
+            :href="SHOPEE_LINK"
             class="w-full py-4 px-6 bg-[#ec643a] text-white rounded-xl font-semibold flex items-center justify-center space-x-2 hover:bg-opacity-90 transition-all duration-300 hover-scale press-effect animate-scale-in"
             target="_blank"
             style="animation-delay: 0.3s"
           >
-            <span>Order via ShopeeFood</span>
+            <span>Order via Shopee</span>
           </a>
         </div>
 
